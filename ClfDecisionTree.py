@@ -204,6 +204,7 @@ def smoothData(timeline):
 				val_weight[i][1] = weight
 
 		for i in range(timeline.shape[0]):
+
 			if (timeline[i][1] > 10.0):
 				decider = 1
 			else:
@@ -213,26 +214,18 @@ def smoothData(timeline):
 				if (i == 0 and (val_weight[i][1] < val_weight[i+1][1])):
 					timeline[i][0] = timeline[i+1][0]
 					continue
+                
 				if (i == (timeline.shape[0]-1) and (val_weight[i][1] < val_weight[i+1][1])):
-					timeline[i][[0] == timeline[i-1][0]
-				else:	
+					timeline[i][0] == timeline[i-1][0]
+				else:
 					above = val_weight[i-1][1]
-					below = val_weight[i]
+					below = val_weight[i+1][1]
 					
 					if (above < below):
 						timeline[i][0] = val_weight[i+1][0]
 					else:
 						timeline[i][0] = val_weight[i-1][0]
 	return timeline
-
-
-
-
-
-
-
-
-
 
 	#for i in range(timeline.shape[0]):
 #
