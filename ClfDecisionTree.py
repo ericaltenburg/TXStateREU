@@ -4,8 +4,6 @@
 # Description:	Machine learning classification decision tree for supervised learning
 # **
 
-# THis is an edit from my macbook!
-
 import numpy as np 
 import pandas as pd
 from sklearn.metrics import confusion_matrix
@@ -174,48 +172,58 @@ def smoothData(timeline):
 	counter = 0
 	# Going to hold the total weight for multiple maneuvers
 	weight = 0
+
+	decider = 0		
+
 	# Holds the current maneuver, might not be necessary though, just use i -1
 
 	# Iterate through the entire array counting up the weight per maneuver and add it to the matrix with same size
-	for i in range(timeline.shape[0]):
-		# First item
-		if (i == 0):
-			counter = 1
-			weight += timeline[i][1]
-			val_weight[i][0] = timeline[i][0]
-			val_weight[i][1] = weight
-			continue
-
-		# Same item
-		if (timeline[i][0] == timeline[i-1][0]):
-			counter +=1
-			val_weight[i][1] = weight
-			weight += timeline[i][1]
-			val_weight[i][0] = timeline[i][0]
-		else:
-			for k in range(counter):
-				val_weight[i-(counter - k)][1] = weight
-
-			counter = 1
-			weight = timeline[i][1]
-			val_weight[i][0] = timeline[i][0]
-			val_weight[i][1] = weight
-
-	# Iterates through the timeline to change the values that are less than 20 (2 sec) and if they are, checks if the surrounding is diff. If not, then done
-	done = False
-	for i in range(timeline.shape[0]):
-		# If the value is too small (1 sec), then look above and below to see if another val is there to replace it
-		if (timeline[i][1] < 10.0):
-
-			# The first element so only look below
+	while (decider == 0):
+		for i in range(timeline.shape[0]):
+			# First item
 			if (i == 0):
-				(val_weight[i+1][])
+		 		counter = 1
+				weight += timeline[i][1]
+				val_weight[i][0] = timeline[i][0]
+				val_weight[i][1] = weight
+				continue
 
-		if (not done):
-			i = 0
+			# Same item
+			if (timeline[i][0] == timeline[i-1][0]):
+				counter +=1
+				val_weight[i][1] = weight
+				weight += timeline[i][1]
+				val_weight[i][0] = timeline[i][0]
+			else:
+				for k in range(counter):
+					val_weight[i-(counter - k)][1] = weight
 
+				counter = 1
+				weight = timeline[i][1]
+				val_weight[i][0] = timeline[i][0]
+				val_weight[i][1] = weight
 
-	return val_weight	
+		for i in range(timeline.shape[0]):
+			if (timeline[i][1] > 10.0):
+				decider = 1
+			else:
+				decider = 0
+
+				# The item is the first, and the one after it is bigger
+				if (i == 0 and (val_weight[i][1] < val_weight[i+1][1])):
+					timeline[i][0] = timeline[i+1][0]
+					continue
+				if (i == (timeline.shape[0]-1) and (val_weight[i][1] < val_weight[i+1][1])):
+					timeline[i][[0] == timeline[i-1][0]
+				else:	
+					above = val_weight[i-1][1]
+					below = val_weight[i]
+					
+					if (above < below):
+						timeline[i][0] = val_weight[i+1][0]
+					else:
+						timeline[i][0] = val_weight[i-1][0]
+	return timeline
 
 
 
@@ -289,22 +297,19 @@ def main():
 	# For determining how long each maneuver was done in the predition
 	prediction_data = importPredictionData()
 
+	# Holds the initial timeline before the smoothing occurs
 	timeline = maneuverTimeline(prediction_data)
-
 	np.savetxt("timeline.csv", timeline, delimiter = ",")
 
-	# Maybe look into the timeline csv and get rid of data that has anything less than X amount of time
-	# If value is < # then just change it to the value with the most around it.
-
+	# TESTING #
 	print(timeline)
 
+	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
-	#final_timeline = gaussian_filter(timeline, sigma = 1)
-	#final_timeline = medfilt(timeline)
-
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
 
-	#print()
+	# TESTING #
+	print()
 	print(final_timeline)
 
 	#predictions = splitTimelineData()
