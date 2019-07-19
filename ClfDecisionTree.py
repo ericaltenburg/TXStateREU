@@ -86,7 +86,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, X_test, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 8)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 4)
 
 	print("Size of X",X_train.size)
 	print("Size of Y",Y_train.size)
@@ -216,7 +216,7 @@ def smoothData(timeline):
 					continue
                 
 				if (i == (timeline.shape[0]-1) and (val_weight[i][1] < val_weight[i+1][1])):
-					timeline[i][0] == timeline[i-1][0]
+					timeline[i][0] = timeline[i-1][0]
 				else:
 					above = val_weight[i-1][1]
 					below = val_weight[i+1][1]
