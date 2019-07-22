@@ -18,10 +18,10 @@ from subprocess import call
 
 # Imports data being used for training as csv 
 def importTrainData():
-	# Change this for different systems	
+	# Lab Desktop
 	balance_train_data = pd.read_csv('/home/user1/Usable Logs/combinedTrainTable.csv', sep = ',', header = None)
-	# Macbook, change these for the new file paths
-	#balance_train_data = pd.read_csv('
+	# Macbook
+	#balance_train_data = pd.read_csv('/home/user1/Document/ManeuverPredictionML/combinedTrainTable.csv', sep = ',', header = None)
 	
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_train_data))
@@ -33,7 +33,10 @@ def importTrainData():
 
 # Import data being used for testing as csv
 def importTestData():
+	# Lab Desktop
 	balance_test_data = pd.read_csv('/home/user1/Usable Logs/trainTable5.csv', sep = ',', header = None)
+	# Macbook
+	#balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/trainTable5.csv', sep = ',', header = None)
 
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_test_data))
@@ -45,7 +48,11 @@ def importTestData():
 
 # Import data from the prediction that will be used for determining timeline
 def importPredictionData():
+	# Lab Desktop
 	balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
+	# Macbook
+	#balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
+
 
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_pred_data))
@@ -61,7 +68,11 @@ def importPredictionData():
 # Splits up the predicions from the times in the final_timeline
 def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
+
+	# Lab Desktop
 	X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline', sep = ',', header = None)
+	# Macbook
+	#X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
@@ -89,7 +100,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, X_test, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 4)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 8)
 
 	print("Size of X",X_train.size)
 	print("Size of Y",Y_train.size)
@@ -167,10 +178,41 @@ def maneuverTimeline(prediction_data):
 
 	return maneuverTimelineHelper(prediction_data, 0, 0, 0, timeline)
 
+# Gets rid of multiple of the same maneuvers
+def removeRepeats(timeline):
+	# Holds the new reduced timeline
+	new_timeline = np.empty(shape=[0,2])
+	maneuver = 0
+	weight = 0
+
+	# Traverse through the entire array
+	for i in range (timeline.shape[0]):
+		curr_man = timeline[i][0]
+		curr_weight = timeline[i][1]
+		if (i == 0):
+			maneuver = curr_man
+			weight = curr_weight
+			continue
+
+		# Same maneuver, add up and move on
+		if (curr_man == maneuver):
+			weight += curr_weight
+		else:
+			new_timeline = np.append(new_timeline, [[maneuver, weight]], axis = 0)
+			maneuver = curr_man
+			weight = curr_weight
+
+			# The last element gets appended regardless
+			if (i == timeline.shape[0]):
+				new_timeline = np.append(new_timeline, [[curr_man, curr_weight]], axis = 0)
+
+	return new_timeline
+
+
 # Smoothes the data to get rid of any extraneous values. If found, will default to the biggest next to it.
 def smoothData(timeline):
 	# Matrix to hold the values and the total amount of weight of each value, used for deciding which value to switch current val (if low enough) to. Time complex of maybe n^2? Same shape as the timeline
-	val_weight = np.empty(shape = [timeline.shape[0], 2])
+	#val_weight = np.empty(shape = [timeline.shape[0], 2])
 	# Going to hold the amount to back track for entering weight per maneuver
 	counter = 0
 	# Going to hold the total weight for multiple maneuvers
@@ -178,14 +220,19 @@ def smoothData(timeline):
 
 	decider = 0		
 
+	do_again = False
+
 	# Holds the current maneuver, might not be necessary though, just use i -1
 
 	# Iterate through the entire array counting up the weight per maneuver and add it to the matrix with same size
 	while (decider == 0):
+		val_weight = np.empty(shape = [timeline.shape[0], 2])
+
+		# Creates separate array holding all the weights used for smoothing surrounding data
 		for i in range(timeline.shape[0]):
 			# First item
 			if (i == 0):
-		 		counter = 1
+				counter = 1
 				weight += timeline[i][1]
 				val_weight[i][0] = timeline[i][0]
 				val_weight[i][1] = weight
@@ -205,11 +252,15 @@ def smoothData(timeline):
 				weight = timeline[i][1]
 				val_weight[i][0] = timeline[i][0]
 				val_weight[i][1] = weight
-
+		# Changes the maneuver to the surrounding if it is below a certain number
 		for i in range(timeline.shape[0]):
 
 			if (timeline[i][1] > 10.0):
 				decider = 1
+				#if (do_again == False):
+				#	do_again = True
+				#lse:
+				#	do_again = False
 			else:
 				decider = 0
 
@@ -228,6 +279,11 @@ def smoothData(timeline):
 						timeline[i][0] = val_weight[i+1][0]
 					else:
 						timeline[i][0] = val_weight[i-1][0]
+		timeline = removeRepeats(timeline)
+
+		print
+		print(timeline)
+
 	return timeline
 
 # Driver
@@ -272,13 +328,14 @@ def main():
 
 	# TESTING #
 	print(timeline)
+	print
 
 	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
 
 	# TESTING #
-	print()
+	print
 	print(final_timeline)
 
 	#predictions = splitTimelineData()
