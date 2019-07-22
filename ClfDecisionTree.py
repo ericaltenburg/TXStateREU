@@ -4,8 +4,6 @@
 # Description:	Machine learning classification decision tree for supervised learning
 # **
 
-# This is here to serve as a notifier to show that changes were made
-
 import numpy as np 
 import pandas as pd
 from sklearn.metrics import confusion_matrix
@@ -232,31 +230,6 @@ def smoothData(timeline):
 						timeline[i][0] = val_weight[i-1][0]
 	return timeline
 
-	#for i in range(timeline.shape[0]):
-#
-#		# If the value is too small, look at top and bottom
-#		if (timeline[i, 1] < 20.0):
-#
-#			# Also have to make sure if it is surrounded by similar maneuvers, it can change/leave it alone
-#
-#			# This is the first one, so only look below
-#			if (timeline[i, 1] == timeline[0, 1]):
-#				timeline[0, 0] = timeline[1, 0]
-#
-#			# This is the last one, so only look above
-			#if (timeline[i, 1] == timeline[-1, 1]):
-#				timeline[-1, 0] = timeline[-2, 0]
-#
-#			x = timeline[i-1, 1]
-#			y = timeline[i+1, 1]
-#
-#			if (x > y):
-#				timeline[i, 0] = timeline[i-1, 0]
-#			else:
-#				timeline[i, 0] = timeline[i+1, 0]
-#
-#	return timeline
-
 # Driver
 def main():
 	# Import data
@@ -280,8 +253,6 @@ def main():
 
 	# Calculate and print accuracy along with confusion matrix
 	accuracy(test_ans, prediction_gini)
-
-	# print(log_loss(test_ans, prediction_gini))
 
 	# Visualize tree in png
 	#xport_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
