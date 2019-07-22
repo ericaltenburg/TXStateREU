@@ -4,11 +4,11 @@ Code for the Classifier Decision Tree machine learning model. Used to predict th
 
 ## Compiling
 
-Compile the ClfDecisionTree.py in the terminal by typing ```python3 ./ClfDecisionTree.py```
+Compile the ClfDecisionTree.py in the terminal by typing `python3 ./ClfDecisionTree.py`
 
 ## Issues
 
-If you're having issues compiling, check to see if you have Python 3 installed. You can do so by opening the terminal and typing ```pip3``` and hitting enter. If you encounter errors, follow the Python 3 with this [link](https://realpython.com/installing-python/).
+If you're having issues compiling, check to see if you have Python 3 installed. You can do so by opening the terminal and typing `pip3` and hitting enter. If you encounter errors, follow the Python 3 with this [link](https://realpython.com/installing-python/).
 
 If Python 3 is installed and you are compiling with it, then another common error is:
 > ModuleNotFoundError: No module named 'XXXXX'
