@@ -4,7 +4,7 @@ Code for the Classifier Decision Tree machine learning model. Used to predict th
 
 ## Compiling
 
-Compile the ClfDecisionTree.py in the terminal by typing ```python3 ./ClfDecisionTree.py.```
+Compile the ClfDecisionTree.py in the terminal by typing ```python3 ./ClfDecisionTree.py```
 
 ## Issues
 
