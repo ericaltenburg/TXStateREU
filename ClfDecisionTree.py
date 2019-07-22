@@ -19,9 +19,9 @@ from subprocess import call
 # Imports data being used for training as csv 
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Usable Logs/combinedTrainTable.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/home/user1/Usable Logs/combinedTrainTable.csv', sep = ',', header = None)
 	# Macbook
-	#balance_train_data = pd.read_csv('/home/user1/Document/ManeuverPredictionML/combinedTrainTable.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 	
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_train_data))
@@ -34,9 +34,9 @@ def importTrainData():
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Usable Logs/trainTable5.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/home/user1/Usable Logs/trainTable5.csv', sep = ',', header = None)
 	# Macbook
-	#balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/trainTable5.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/trainTable5.csv', sep = ',', header = None)
 
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_test_data))
@@ -49,9 +49,9 @@ def importTestData():
 # Import data from the prediction that will be used for determining timeline
 def importPredictionData():
 	# Lab Desktop
-	balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
-	# Macbook
 	#balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
+	# Macbook
+	balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
 
 
 	# Statistics about data (optional print)
@@ -70,9 +70,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline', sep = ',', header = None)
-	# Macbook
 	#X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline', sep = ',', header = None)
+	# Macbook
+	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
