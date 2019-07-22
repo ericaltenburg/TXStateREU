@@ -20,6 +20,8 @@ pip3 install *Module Name*
 
 ## Github Commands
 
+###### ALWAYS REMEMBER TO PULL BEFORE MAKING ANY CHANGES TO FILES. THIS ENSURES YOU ARE WORKING WITH THE MOST UP-TO-DATE VERSION OF THE FILE, AND IT WILL PREVET ANY MERGING ERRORS.
+
 ###### After modifying the files
 
 This tells you information about midified files and the repository in general:
@@ -55,4 +57,13 @@ git push
 Grabs changes:
 ```
 git pull origin master
+```
+
+###### Issues with Github
+
+If you make changes to a local file before pulling the most up-to-date version, then there will be a merging error. Assuming you want to override the changes you made, then do this command:
+```
+git stash
+git pull origin master
+git stash pop
 ```
