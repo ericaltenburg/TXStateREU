@@ -56,3 +56,10 @@ Grabs changes:
 '''
 git pull origin master
 '''
+
+
+```
+git status
+git add
+git commit
+```
