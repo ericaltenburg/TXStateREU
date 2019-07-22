@@ -1,5 +1,5 @@
 # **
-# Author:		Eric Altenburg and John
+# Author:		Eric Altenburg
 # Date: 		25 June 2019
 # Description:	Machine learning classification decision tree for supervised learning
 # **
@@ -20,8 +20,8 @@ from subprocess import call
 def importTrainData():
 	# Change this for different systems	
 	balance_train_data = pd.read_csv('/home/user1/Usable Logs/combinedTrainTable.csv', sep = ',', header = None)
-	# Macbook
-	balance_train_data = pd.read_csv('
+	# Macbook, change these for the new file paths
+	#balance_train_data = pd.read_csv('
 	
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_train_data))
