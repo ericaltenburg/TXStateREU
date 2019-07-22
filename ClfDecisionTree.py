@@ -1,5 +1,5 @@
 # **
-# Author:		Eric Altenburg and John
+# Author:		Eric Altenburg
 # Date: 		25 June 2019
 # Description:	Machine learning classification decision tree for supervised learning
 # **
