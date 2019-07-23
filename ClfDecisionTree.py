@@ -24,9 +24,9 @@ from subprocess import call
 # Imports data being used for training as csv 
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/AllSimulationTrainingData.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/AllSimulationTrainingData.csv', sep = ',', header = None)
 	# Macbook
-	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
 	
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_train_data))
@@ -39,9 +39,9 @@ def importTrainData():
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/TestCSV.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/TestCSV.csv', sep = ',', header = None)
 	# Macbook
-	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/trainTable5.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
 
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_test_data))
@@ -54,9 +54,9 @@ def importTestData():
 # Import data from the prediction that will be used for determining timeline
 def importPredictionData():
 	# Lab Desktop
-	balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
+	#balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
 	# Macbook
-	#balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
+	balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
 
 
 	# Statistics about data (optional print)
@@ -75,9 +75,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
@@ -105,7 +105,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, X_test, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 3)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 3)
 
 	print("Size of X",X_train.size)
 	print("Size of Y",Y_train.size)
@@ -324,13 +324,13 @@ def main():
 	accuracy(test_ans, prediction_gini)
 
 	# Visualize tree in png
-	#export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
-	#proportion = False, precision = 2, filled = True)
-	#all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
-	#plt.figure(figsize = (14, 18))
-	#plt.imshow(plt.imread('tree.png'))
-	#plt.axis('off')
-	#plt.show()
+	export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
+	proportion = False, precision = 2, filled = True)
+	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
+	plt.figure(figsize = (14, 18))
+	plt.imshow(plt.imread('tree.png'))
+	plt.axis('off')
+	plt.show()
 
 	# For determining how long each maneuver was done in the predition
 	prediction_data = importPredictionData()
