@@ -21,12 +21,12 @@ from IPython.display import Image
 import matplotlib.pyplot as plt 
 from subprocess import call
 
-# Imports data being used for training as csv 
+# Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
 	# Macbook
-	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 	
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_train_data))
@@ -39,9 +39,9 @@ def importTrainData():
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSV.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSV.csv', sep = ',', header = None)
 	# Macbook
-	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
 
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_test_data))
@@ -54,9 +54,9 @@ def importTestData():
 # Import data from the prediction that will be used for determining timeline
 def importPredictionData():
 	# Lab Desktop
-	balance_pred_data = pd.read_csv('/home/user1/Documents/TXStateREU/predictions.csv', sep = ',', header = None)
+	#balance_pred_data = pd.read_csv('/home/user1/Documents/TXStateREU/predictions.csv', sep = ',', header = None)
 	# Macbook
-	#balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
+	balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
 
 
 	# Statistics about data (optional print)
@@ -75,9 +75,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
