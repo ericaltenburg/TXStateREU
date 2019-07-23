@@ -105,7 +105,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, X_test, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 4)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 5)
 
 	print("Size of X",X_train.size)
 	print("Size of Y",Y_train.size)
@@ -357,6 +357,10 @@ def main():
 	#predictions = splitTimelineData()
 
 	#accuracy(test_ans, predictions)
+
+	# For converting the tree.dot to the proper tree.png
+	import os
+	os.system("dot -Tpng Tree.dot -o Tree.png")
 
 # Calling main method
 if __name__ == "__main__":
