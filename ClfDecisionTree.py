@@ -2,7 +2,12 @@
 # Author:		Eric Altenburg
 # Date: 		25 June 2019
 # Description:	Machine learning classification decision tree for supervised learning
-# 
+# **
+
+# TODO:
+# - Fix the end of the timeline creation as it doesn't count the last element
+# - Fix the smoothing to not get rid of the final 3's (descending)
+
 
 import numpy as np 
 import pandas as pd
