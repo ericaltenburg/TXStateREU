@@ -24,9 +24,9 @@ from subprocess import call
 # Imports data being used for training as csv 
 def importTrainData():
 	# Lab Desktop
-	#balance_train_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/AllSimulationTrainingData.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
 	# Macbook
-	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
 	
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_train_data))
@@ -39,9 +39,9 @@ def importTrainData():
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	#balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/TestCSV.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSV.csv', sep = ',', header = None)
 	# Macbook
-	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
 
 	# Statistics about data (optional print)
 	#print('Dataset Length: ', len(balance_test_data))
@@ -54,9 +54,9 @@ def importTestData():
 # Import data from the prediction that will be used for determining timeline
 def importPredictionData():
 	# Lab Desktop
-	#balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
+	balance_pred_data = pd.read_csv('/home/user1/Documents/TXStateREU/predictions.csv', sep = ',', header = None)
 	# Macbook
-	balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
+	#balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
 
 
 	# Statistics about data (optional print)
@@ -75,9 +75,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	#X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
@@ -326,7 +326,7 @@ def main():
 	# Visualize tree in png
 	export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
 	proportion = False, precision = 2, filled = True)
-	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
+	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=6k00'])
 	plt.figure(figsize = (14, 18))
 	plt.imshow(plt.imread('tree.png'))
 	plt.axis('off')
@@ -360,7 +360,7 @@ def main():
 
 	# For converting the tree.dot to the proper tree.png
 	import os
-	os.system("dot -Tpng Tree.dot -o Tree.png")
+	os.system("dot -Tpng tree.dot -o tree.png")
 
 # Calling main method
 if __name__ == "__main__":
