@@ -208,8 +208,12 @@ def removeRepeats(timeline):
 			weight = curr_weight
 
 			# The last element gets appended regardless
-			if (i == timeline.shape[0]):
+			if (i == timeline.shape[0]-1):
 				new_timeline = np.append(new_timeline, [[curr_man, curr_weight]], axis = 0)
+
+
+	print("THIS IS THE REMOVE REPEATS TIMELINE: ")
+	print(new_timeline)
 
 	return new_timeline
 
@@ -284,11 +288,15 @@ def smoothData(timeline):
 						timeline[i][0] = val_weight[i+1][0]
 					else:
 						timeline[i][0] = val_weight[i-1][0]
-		timeline = removeRepeats(timeline)
 
-		print
+		print("THIS IS THE SMOOTH DATA TIMELINE BEFORE THE REMOVE REPEATS:")
 		print(timeline)
 
+		timeline = removeRepeats(timeline)
+
+		print("THIS IS THE SMOOTH DATA TIMELINE AFTER THE REMOVE REPEATS:")
+		print(timeline)
+		
 	return timeline
 
 # Driver
@@ -327,20 +335,23 @@ def main():
 	# For determining how long each maneuver was done in the predition
 	prediction_data = importPredictionData()
 
+	print("THESE ARE THE TOTAL PREDICTIONS:")
+	print(prediction_data)
+
 	# Holds the initial timeline before the smoothing occurs
 	timeline = maneuverTimeline(prediction_data)
 	np.savetxt("timeline.csv", timeline, delimiter = ",")
 
 	# TESTING #
+	print("THIS IS THE ORIGINAL TIMELINE:")
 	print(timeline)
-	print
 
 	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
 
 	# TESTING #
-	print
+	print("THIS IS THE VERY LAST FINAL VERY LAST TIMELINE:")
 	print(final_timeline)
 
 	#predictions = splitTimelineData()
