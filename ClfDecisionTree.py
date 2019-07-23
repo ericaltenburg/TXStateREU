@@ -75,9 +75,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline', sep = ',', header = None)
+	X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline', sep = ',', header = None)
+	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
