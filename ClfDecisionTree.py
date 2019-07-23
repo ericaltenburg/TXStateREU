@@ -24,7 +24,7 @@ from subprocess import call
 # Imports data being used for training as csv 
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Usable Logs/combinedTrainTable.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/AllSimulationTrainingData.csv', sep = ',', header = None)
 	# Macbook
 	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 	
@@ -39,7 +39,7 @@ def importTrainData():
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Usable Logs/trainTable5.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/TestCSV.csv', sep = ',', header = None)
 	# Macbook
 	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/trainTable5.csv', sep = ',', header = None)
 
@@ -105,7 +105,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, X_test, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 8)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = None, max_depth = 6)
 
 	print("Size of X",X_train.size)
 	print("Size of Y",Y_train.size)
@@ -316,13 +316,13 @@ def main():
 	accuracy(test_ans, prediction_gini)
 
 	# Visualize tree in png
-	#xport_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
+	#export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
 	#proportion = False, precision = 2, filled = True)
 	#all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
-	#lt.figure(figsize = (14, 18))
-	#lt.imshow(plt.imread('tree.png'))
-	#lt.axis('off')
-	#lt.show()
+	#plt.figure(figsize = (14, 18))
+	#plt.imshow(plt.imread('tree.png'))
+	#plt.axis('off')
+	#plt.show()
 
 	# For determining how long each maneuver was done in the predition
 	prediction_data = importPredictionData()
