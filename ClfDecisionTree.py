@@ -24,7 +24,7 @@ from subprocess import call
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurns.csv', sep = ',', header = None)
 	# Macbook
 	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 
@@ -33,7 +33,7 @@ def importTrainData():
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/trainTable5.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn.csv', sep = ',', header = None)
 	# Macbook
 	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
 
@@ -74,7 +74,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = None)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 3)
 
 	#print("Size of X",X_train.size)
 	#print("Size of Y",Y_train.size)
