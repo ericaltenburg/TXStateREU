@@ -142,8 +142,8 @@ def maneuverTimeline(prediction_data):
 # Gets rid of multiple of the same maneuvers
 def removeRepeats(timeline):
 	# Rarely ever going to be called
-	#if (timeline.shape[0] == 1)
-	#	return timeline
+	if (timeline.shape[0] == 1):
+		return timeline
 
 	# Holds the new reduced timeline
 	new_timeline = np.empty(shape=[0,2])
@@ -181,51 +181,51 @@ def removeRepeats(timeline):
 # Smoothes the data to get rid of any extraneous values. If found, will default to the biggest next to it. If surrounding are equal, for loop to the next until it finds one that isn't equal to each other
 def smoothData(timeline):
 	# Rarely ever going to be called
-	#if (timeline.shape[0] == 1)
-	#	return timeline
+	if (timeline.shape[0] == 1):
+		return timeline
 
 	# Get rid of all repeats to have non repeating timelne. Makes smoothing easier and reduces space consumption.
-	#timeline = removeRepeats(timeline) # Still call this at the end of while
+	timeline = removeRepeats(timeline) # Still call this at the end of while
 	# Determines whether or not to travel through the array again. May result in an n^2 time complexity. Will cut back on space consumption (1 less array)
-	#re_smooth = True 
+	re_smooth = True 
 
 	# Travel thorugh the array after the repeats were removed.
-	#while (re_smooth == True):
+	while (re_smooth == True):
 		# Traverse through the array to see if there is a value below 10 (1 sec)
-	#	for i in range(timeline.shape[0]):
+		for i in range(timeline.shape[0]):
 			# Value is low, change it
-	#		if (timeline[i][1] < 10.0):
+			if (timeline[i][1] < 10.0):
 				# This is the first value or last value
-	#			if (i == 0 and (timeline[i+1][1] > timeline[i][1])):
-	#				timeline[i][0] = timeline[i+1][0]
-	#				continue
-	#			elif: (i == timeline.shape[0]-1 and (timeline[i][1] < timeline[i-1][1])):
-	#				timeline[i][0] = timeline[i-1][0]
-	#				continue
+				if (i == 0 and (timeline[i+1][1] > timeline[i][1])):
+					timeline[i][0] = timeline[i+1][0]
+					continue
+				elif (i == timeline.shape[0]-1 and (timeline[i][1] < timeline[i-1][1])):
+					timeline[i][0] = timeline[i-1][0]
+					continue
 
-	#			above = timeline[i-1][1]
-	#			below = timeline[i+1][1]
+				above = timeline[i-1][1]
+				below = timeline[i+1][1]
 
-	#			if (above > below):
-	#				timeline[i][1] = timeline[i-1][0]
-	#			elif (below > above):
-	#				timeline[i][1] = timeline[i+1][0]
-	#			elif (above == below):
-	#				count_up = i+1
-	#				count_down = i-1
-	#				searching, search_up, search_down = True
+				if (above > below):
+					timeline[i][1] = timeline[i-1][0]
+				elif (below > above):
+					timeline[i][1] = timeline[i+1][0]
+				elif (above == below):
+					count_up = i+1
+					count_down = i-1
+					searching, search_up, search_down = True
 
-	#				while (searching == True):
+					while (searching == True):
 
 
-	#	timeline = removeRepeats(timeline)
+		timeline = removeRepeats(timeline)
 
 		# Go through array one last time to see if there is another instance of a value less than 10
-	#	for i in range(timeline.shape[0]):
-	#		if (timeline[i][1] < 10.0):
-	#			re_smooth = True
-	#		else:
-	#			re_smooth = False
+		for i in range(timeline.shape[0]):
+			if (timeline[i][1] < 10.0):
+				re_smooth = True
+			else:
+				re_smooth = False
 
 
 
