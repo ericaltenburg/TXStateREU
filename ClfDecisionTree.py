@@ -74,7 +74,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = None)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 10)
 
 	#print("Size of X",X_train.size)
 	#print("Size of Y",Y_train.size)
@@ -130,7 +130,7 @@ def maneuverTimelineHelper(prediction_data, maneuver, man_counter, timeline):
 		elif (prediction_data[i] == maneuver):
 			man_counter += 1
 
-	return removeRepeats(timeline)
+	return timeline
 
 # Calls helper method
 def maneuverTimeline(prediction_data):
