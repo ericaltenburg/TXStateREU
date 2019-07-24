@@ -5,8 +5,8 @@
 # **
 
 # TODO:
-# - Fix the end of the timeline creation as it doesn't count the last element
-# - Fix the smoothing to not get rid of the final 3's (descending)
+# - Finish tracing through starting after timeline creation
+# - Begin rewriting smoothing data and remove repeats (think this works right now)
 
 
 import numpy as np 
