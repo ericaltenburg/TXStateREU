@@ -5,8 +5,8 @@
 # **
 
 # TODO:
-# - Fix the end of the timeline creation as it doesn't count the last element
-# - Fix the smoothing to not get rid of the final 3's (descending)
+# - Finish tracing through starting after timeline creation
+# - Begin rewriting smoothing data and remove repeats (think this works right now)
 
 
 import numpy as np 
@@ -21,63 +21,32 @@ from IPython.display import Image
 import matplotlib.pyplot as plt 
 from subprocess import call
 
-# Imports data being used for training as csv 
+# Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	#balance_train_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/AllSimulationTrainingData.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 	# Macbook
-	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingData.csv', sep = ',', header = None)
-	
-	# Statistics about data (optional print)
-	#print('Dataset Length: ', len(balance_train_data))
-	#print('Dataset Shape: ', balance_train_data.shape)
-	#print('Dataset: ')
-	#print(balance_train_data.head())
+	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 
 	return balance_train_data
 
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	#balance_test_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/TestCSV.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/trainTable5.csv', sep = ',', header = None)
 	# Macbook
-	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
-
-	# Statistics about data (optional print)
-	#print('Dataset Length: ', len(balance_test_data))
-	#print('Dataset Shape: ', balance_test_data.shape)
-	#print('Dataset: ')
-	#print(balance_data.head())
+	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
 
 	return balance_test_data
-
-# Import data from the prediction that will be used for determining timeline
-def importPredictionData():
-	# Lab Desktop
-	#balance_pred_data = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/predictions.csv', sep = ',', header = None)
-	# Macbook
-	balance_pred_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/predictions.csv', sep = ',', header = None)
-
-
-	# Statistics about data (optional print)
-	#print('Dataset Length: ', len(balance_pred_data))
-	#print('Dataset Shape: ', balance_pred_data.shape)
-	#print('Dataset: ')
-	#print(balance_pred_data.head())
-
-	# Isolates the answers and puts them into a numpy array
-	pred_data = balance_pred_data.values[:, 0]
-
-	return pred_data
 
 # Splits up the predicions from the times in the final_timeline
 def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	#X = pd.read_csv('/home/user1/Documents/ManeuverPredictionML/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
@@ -87,7 +56,7 @@ def splitTimelineData():
 def splitTrainData(balance_train_data):
 
 	# Split up data
-	X = balance_train_data.values[:, 3:11] # Training values
+	X = balance_train_data.values[:, 2:11] # Training values
 	Y = balance_train_data.values[:, 0] # Answers to check with
 
 	# TODO: look up way to specify the size
@@ -97,18 +66,18 @@ def splitTrainData(balance_train_data):
 
 # Splits up the data we want to test it with, not training data
 def extractTestData(balance_test_data):
-	test_vals = balance_test_data.values[:, 3:11] 
+	test_vals = balance_test_data.values[:, 2:11] 
 	test_ans = balance_test_data.values[:, 0]
 
 	return test_vals, test_ans
 
 # Traing the CDT with gini index and combined train data
-def trainModelGini(X_train, X_test, Y_train):
+def trainModelGini(X_train, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 4)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 10)
 
-	print("Size of X",X_train.size)
-	print("Size of Y",Y_train.size)
+	#print("Size of X",X_train.size)
+	#print("Size of Y",Y_train.size)
 
 	# Training
 	classifier_gini.fit(X_train, Y_train)
@@ -136,43 +105,30 @@ def accuracy(Y_test, Y_prediction):
 	# Accuracy score/percentage
 	print('Accuracy: ', accuracy_score(Y_test, Y_prediction)*100)
 
-	# Report?
+	# Report
 	print('Report:')
 	print(classification_report(Y_test, Y_prediction))
 
 # Recurrsively travels through the prediction data to create a time line for each of the maneuvers
-def maneuverTimelineHelper(prediction_data, maneuver, man_counter, data_counter, timeline):
+def maneuverTimelineHelper(prediction_data, maneuver, man_counter, timeline):
+	# Initial maneuver set
+	maneuver = prediction_data[0]
 
-	# There are still values left to be evaluated
-	while data_counter <= prediction_data.size:
+	# Traverse through prediction_data adding up each subsequent instance and placing in 2D array
+	for i in range(prediction_data.size):
 
-		# Initial maneuver
-		if (maneuver == 0):
-			maneuver = prediction_data[0]
-			man_counter += 1
-			data_counter += 1
-			continue
+		# If the element is different or it is the last element
+		if ((prediction_data[i] != maneuver) or (i == prediction_data.size-1)):
 
-		# The maneuver has changed
-		if ((prediction_data[data_counter-1] != maneuver) or (data_counter == prediction_data.size)):
-
-			if (data_counter==prediction_data.size):
+			# If it is the last element, then +1 to man_counter to count itself. Else not the last element
+			if (i == prediction_data.size-1):
 				timeline = np.append(timeline, [[maneuver, man_counter+1]], axis = 0)
 			else:
 				timeline = np.append(timeline, [[maneuver, man_counter]], axis = 0)
-
-			# Only reset if the value is not at the end of array or out of bounds exception
-			if (data_counter < prediction_data.size):
-				maneuver = prediction_data[data_counter]
+				maneuver = prediction_data[i]
 				man_counter = 1
-			data_counter += 1
-			continue
-
-		# The maneuver has not changed, do not change anything
-		if (maneuver != 0):
+		elif (prediction_data[i] == maneuver):
 			man_counter += 1
-
-		data_counter +=1
 
 	return timeline
 
@@ -181,7 +137,7 @@ def maneuverTimeline(prediction_data):
 	# Creation of Rx2 matrix to hold the maneuver and the amount of time held
 	timeline = np.empty(shape=[0, 2])
 
-	return maneuverTimelineHelper(prediction_data, 0, 0, 0, timeline)
+	return maneuverTimelineHelper(prediction_data, 0, 0, timeline)
 
 # Gets rid of multiple of the same maneuvers
 def removeRepeats(timeline):
@@ -277,7 +233,7 @@ def smoothData(timeline):
 				if (i == 0 and (val_weight[i][1] < val_weight[i+1][1])):
 					timeline[i][0] = timeline[i+1][0]
 					continue
-                
+
 				if (i == (timeline.shape[0]-1) and (val_weight[i][1] < val_weight[i+1][1])):
 					timeline[i][0] = timeline[i-1][0]
 				else:
@@ -312,12 +268,12 @@ def main():
 	test_vals, test_ans = extractTestData(test_data)
 
 	# Creating the Decision Tree
-	classifier_gini = trainModelGini(X_train, X_test, Y_train)
+	classifier_gini = trainModelGini(X_train, Y_train)
 
 	# Prints out the predictions from the CDT
 	prediction_gini = prediction(test_vals, classifier_gini)
 
-	# Save predictions to csv file
+	# Save predictions to csv file (optional)
 	np.savetxt("predictions.csv", prediction_gini, delimiter = ",")
 
 	# Calculate and print accuracy along with confusion matrix
@@ -326,20 +282,18 @@ def main():
 	# Visualize tree in png
 	export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
 	proportion = False, precision = 2, filled = True)
-	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
+	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=6k00'])
 	plt.figure(figsize = (14, 18))
 	plt.imshow(plt.imread('tree.png'))
 	plt.axis('off')
 	plt.show()
 
-	# For determining how long each maneuver was done in the predition
-	prediction_data = importPredictionData()
-
+	# TESTING # DELETE ##################
 	print("THESE ARE THE TOTAL PREDICTIONS:")
-	print(prediction_data)
+	print(prediction_gini)
 
 	# Holds the initial timeline before the smoothing occurs
-	timeline = maneuverTimeline(prediction_data)
+	timeline = maneuverTimeline(prediction_gini)
 	np.savetxt("timeline.csv", timeline, delimiter = ",")
 
 	# TESTING #
@@ -357,6 +311,10 @@ def main():
 	#predictions = splitTimelineData()
 
 	#accuracy(test_ans, predictions)
+
+	# For converting the tree.dot to the proper tree.png
+	import os
+	os.system("dot -Tpng tree.dot -o tree.png")
 
 # Calling main method
 if __name__ == "__main__":
