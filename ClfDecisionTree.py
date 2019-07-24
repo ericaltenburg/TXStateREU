@@ -24,7 +24,7 @@ from subprocess import call
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurns.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn.csv', sep = ',', header = None)
 	# Macbook
 	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
 
