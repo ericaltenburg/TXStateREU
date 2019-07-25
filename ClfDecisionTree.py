@@ -272,7 +272,7 @@ def main():
 	proportion = False, precision = 2, filled = True)
 	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=6k00'])
 	plt.figure(figsize = (14, 18))
-	plt.imshow(plt.imread('tree.png'))
+	# plt.imshow(plt.imread('tree.png'))
 	plt.axis('off')
 	plt.show()
 
