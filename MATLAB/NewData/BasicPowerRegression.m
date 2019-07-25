@@ -1,5 +1,6 @@
 totAmp = [156
     105
+    104
     87
     87
     74
@@ -12,6 +13,7 @@ totAmp = [156
 
 Sec = [600
     775
+    740
     1110
     1330
     1200
@@ -22,4 +24,4 @@ Sec = [600
     1960
     2310]
 
-AvgWatts = totAmp./Sec
+AvgCurr = totAmp./Sec
