@@ -4,11 +4,6 @@
 # Description:	Machine learning classification decision tree for supervised learning
 # **
 
-# TODO:
-# - Finish tracing through starting after timeline creation
-# - Begin rewriting smoothing data and remove repeats (think this works right now)
-
-
 import numpy as np 
 import pandas as pd
 from sklearn.metrics import confusion_matrix
@@ -75,9 +70,6 @@ def extractTestData(balance_test_data):
 def trainModelGini(X_train, Y_train):
 	# This is the decision tree itself
 	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 3)
-
-	#print("Size of X",X_train.size)
-	#print("Size of Y",Y_train.size)
 
 	# Training
 	classifier_gini.fit(X_train, Y_train)
@@ -207,15 +199,36 @@ def smoothData(timeline):
 				below = timeline[i+1][1]
 
 				if (above > below):
-					timeline[i][1] = timeline[i-1][0]
+					timeline[i][0] = timeline[i-1][0]
 				elif (below > above):
-					timeline[i][1] = timeline[i+1][0]
+					timeline[i][0] = timeline[i+1][0]
 				elif (above == below):
 					count_up = i+1
 					count_down = i-1
-					searching, search_up, search_down = True
+					searching = True
+					search_up = True
+					search_down = True
 
+					# So long as you are at least doing one of the following, then search in a direction
 					while (searching == True):
+						if (timeline[count_up][1] == timeline[count_down][1]):
+							if count_up+1 in range(0, timeline.shape[0]):
+								count_up += 1
+							else:
+								search_up = False
+
+							if count_down-1 in range(0, timeline.shape[0]):
+								count_down -= 1
+							else:
+								search_down = False
+
+						if (search_up == False and search_down == False):
+							searching = False
+
+					if (timeline[count_down][1] > timeline[count_up][1]):
+						timeline[i][0] = timeline[count_down][0]
+					else:
+						timeline[i][0] = timeline[count_up][0]
 
 
 		timeline = removeRepeats(timeline)
@@ -224,89 +237,10 @@ def smoothData(timeline):
 		for i in range(timeline.shape[0]):
 			if (timeline[i][1] < 10.0):
 				re_smooth = True
+				break
 			else:
 				re_smooth = False
 
-
-
-
-	# Matrix to hold the values and the total amount of weight of each value, used for deciding which value to switch current val (if low enough) to. Time complex of maybe n^2? Same shape as the timeline
-	#val_weight = np.empty(shape = [timeline.shape[0], 2])
-	# Going to hold the amount to back track for entering weight per maneuver
-	counter = 0
-	# Going to hold the total weight for multiple maneuvers
-	weight = 0
-
-	decider = 0		
-
-	do_again = False
-
-	# Holds the current maneuver, might not be necessary though, just use i -1
-
-	# Iterate through the entire array counting up the weight per maneuver and add it to the matrix with same size
-	while (decider == 0):
-		val_weight = np.empty(shape = [timeline.shape[0], 2])
-
-		# Creates separate array holding all the weights used for smoothing surrounding data
-		for i in range(timeline.shape[0]):
-			# First item
-			if (i == 0):
-				counter = 1
-				weight += timeline[i][1]
-				val_weight[i][0] = timeline[i][0]
-				val_weight[i][1] = weight
-				continue
-
-			# Same item
-			if (timeline[i][0] == timeline[i-1][0]):
-				counter +=1
-				val_weight[i][1] = weight
-				weight += timeline[i][1]
-				val_weight[i][0] = timeline[i][0]
-			else:
-				for k in range(counter):
-					val_weight[i-(counter - k)][1] = weight
-
-				counter = 1
-				weight = timeline[i][1]
-				val_weight[i][0] = timeline[i][0]
-				val_weight[i][1] = weight
-		# Changes the maneuver to the surrounding if it is below a certain number
-		for i in range(timeline.shape[0]):
-
-			if (timeline[i][1] > 10.0):
-				decider = 1
-				#if (do_again == False):
-				#	do_again = True
-				#lse:
-				#	do_again = False
-			else:
-				decider = 0
-
-				# The item is the first, and the one after it is bigger
-				if (i == 0 and (val_weight[i][1] < val_weight[i+1][1])):
-					timeline[i][0] = timeline[i+1][0]
-					continue
-
-				if (i == (timeline.shape[0]-1) and (val_weight[i][1] < val_weight[i-1][1])):
-					timeline[i][0] = timeline[i-1][0]
-				else:
-					above = val_weight[i-1][1]
-					below = val_weight[i+1][1]
-					
-					if (above < below):
-						timeline[i][0] = val_weight[i+1][0]
-					else:
-						timeline[i][0] = val_weight[i-1][0]
-
-		print("THIS IS THE SMOOTH DATA TIMELINE BEFORE THE REMOVE REPEATS:")
-		print(timeline)
-
-		timeline = removeRepeats(timeline)
-
-		print("THIS IS THE SMOOTH DATA TIMELINE AFTER THE REMOVE REPEATS:")
-		print(timeline)
-		
 	return timeline
 
 # Driver
@@ -361,10 +295,6 @@ def main():
 	# TESTING #
 	print("THIS IS THE VERY LAST FINAL VERY LAST TIMELINE:")
 	print(final_timeline)
-
-	#predictions = splitTimelineData()
-
-	#accuracy(test_ans, predictions)
 
 	# For converting the tree.dot to the proper tree.png
 	import os
