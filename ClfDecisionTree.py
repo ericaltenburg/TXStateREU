@@ -206,8 +206,6 @@ def smoothData(timeline):
 					count_up = i+1
 					count_down = i-1
 					searching = True
-					search_up = True
-					search_down = True
 
 					# So long as you are at least doing one of the following, then search in a direction
 					while (searching == True):
@@ -262,29 +260,21 @@ def main():
 	accuracy(test_ans, prediction_gini)
 
 	# Visualize tree in png
-	# export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
-	# proportion = False, precision = 2, filled = True)
-	# all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=6k00'])
-	# plt.figure(figsize = (14, 18))
-	# #plt.imshow(plt.imread('tree.png'))
-	# plt.axis('off')
-	# plt.show()
+	export_graphviz(classifier_gini, out_file = 'tree.dot', feature_names = None, class_names = None, rounded = True,
+	proportion = False, precision = 2, filled = True)
+	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=6k00'])
+	plt.figure(figsize = (14, 18))
+	#plt.imshow(plt.imread('tree.png'))
+	plt.axis('off')
+	plt.show()
 
 	# Holds the initial timeline before the smoothing occurs
 	timeline = maneuverTimeline(prediction_gini)
 	np.savetxt("timeline.csv", timeline, delimiter = ",")
 
-	# TESTING #
-	print("THIS IS THE ORIGINAL TIMELINE:")
-	print(timeline)
-
 	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
-
-	# TESTING #
-	print("THIS IS THE VERY LAST FINAL VERY LAST TIMELINE:")
-	print(final_timeline)
 
 	# For converting the tree.dot to the proper tree.png
 	import os
