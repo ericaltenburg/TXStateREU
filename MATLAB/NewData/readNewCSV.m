@@ -11,11 +11,11 @@ veh_local_pos(ax, ay, az, vx, vy, vz)
 %CHANGE ALL THESE!!!!
 %CHANGE ALL THESE!!!!
 %CHANGE ALL THESE!!!!
-file = 'SlowDischargeTest.csv';
-tstart = 89;
-tend = 1696;
-currRate = 37/15.39;z
-fileNum = 'SD';
+file = 'RightCircle.csv';
+tstart = 29;
+tend = 126;
+currRate = 37/15.39;
+fileNum = 'RCircle';
 
 data = readmatrix(file);
 t = [tstart:0.1:tend];
