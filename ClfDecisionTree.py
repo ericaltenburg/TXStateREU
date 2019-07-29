@@ -16,6 +16,9 @@ from IPython.display import Image
 import matplotlib.pyplot as plt 
 from subprocess import call
 
+# TODO:
+# - Create accuracy measurement for the final timeline and test against prediction
+
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
@@ -266,7 +269,6 @@ def main():
 	plt.figure(figsize = (14, 18))
 	#plt.imshow(plt.imread('tree.png'))
 	plt.axis('off')
-	# plt.show()
 
 	# Holds the initial timeline before the smoothing occurs
 	timeline = maneuverTimeline(prediction_gini)
