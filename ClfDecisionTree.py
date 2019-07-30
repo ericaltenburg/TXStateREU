@@ -72,7 +72,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 4)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 3)
 
 	# Training
 	classifier_gini.fit(X_train, Y_train)
