@@ -2,7 +2,8 @@
 % UPDATE THE VARIABLES!!!
 
 %{ 
-veh_air_data(alt), battery(volt, fvolt, curr, fcurr), 
+veh_air_data(alt), 
+battery(volt, fvolt, curr, fcurr), 
 actuator_controls_0(roll[0], pitch[1], yaw[2], ti[3]),
 veh_local_pos(ax, ay, az, vx, vy, vz)
 %}

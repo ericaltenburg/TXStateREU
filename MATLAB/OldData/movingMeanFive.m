@@ -3,6 +3,7 @@ t2 = [tstart:5:tend]*1e6;
 t3 = [tstart+2.5:5:tend-2.5];
 
 volt = pchip(dcurr(:,1), dcurr(:,2), t);
+pwr = pchip(dcurr(:,1), dcurr(:,4), t);
 
 M = movmean(volt, 51);
 
@@ -27,4 +28,4 @@ for col=1:size(adjM, 2)
     end
 end
 
-save(['Moving Mean Data/logfive5','.mat'], 'Sfive5', 'Efive5');
+%save(['Moving Mean Data/logfive5','.mat'], 'Sfive5', 'Efive5');
