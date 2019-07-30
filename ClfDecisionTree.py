@@ -16,21 +16,24 @@ from IPython.display import Image
 import matplotlib.pyplot as plt 
 from subprocess import call
 
+# TODO:
+# - Create accuracy measurement for the final timeline and test against prediction
+
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
 	# Macbook
-	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/combinedTrainTable.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
 
 	return balance_train_data
 
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
 	# Macbook
-	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSV.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
 
 	return balance_test_data
 
@@ -39,9 +42,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
@@ -69,7 +72,7 @@ def extractTestData(balance_test_data):
 # Traing the CDT with gini index and combined train data
 def trainModelGini(X_train, Y_train):
 	# This is the decision tree itself
-	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 3)
+	classifier_gini = DecisionTreeClassifier(criterion = "gini", random_state = 6000, max_depth = 4)
 
 	# Training
 	classifier_gini.fit(X_train, Y_train)
@@ -154,6 +157,10 @@ def removeRepeats(timeline):
 		# Same maneuver, add up and move on
 		if (curr_man == maneuver):
 			weight += curr_weight
+
+			# Print the last added up maneuver and weight to the new
+			if (i == timeline.shape[0]-1):
+				new_timeline = np.append(new_timeline, [[maneuver, weight]], axis = 0)
 		else:
 			new_timeline = np.append(new_timeline, [[maneuver, weight]], axis = 0)
 			maneuver = curr_man
@@ -161,11 +168,7 @@ def removeRepeats(timeline):
 
 			# The last element gets appended regardless
 			if (i == timeline.shape[0]-1):
-				new_timeline = np.append(new_timeline, [[curr_man, curr_weight]], axis = 0)
-
-
-	print("THIS IS THE REMOVE REPEATS TIMELINE: ")
-	print(new_timeline)
+				new_timeline = np.append(new_timeline, [[timeline[i][0], timeline[i][1]]], axis = 0)
 
 	return new_timeline
 
@@ -177,7 +180,7 @@ def smoothData(timeline):
 		return timeline
 
 	# Get rid of all repeats to have non repeating timelne. Makes smoothing easier and reduces space consumption.
-	timeline = removeRepeats(timeline) # Still call this at the end of while
+	timeline = removeRepeats(timeline)
 	# Determines whether or not to travel through the array again. May result in an n^2 time complexity. Will cut back on space consumption (1 less array)
 	re_smooth = True 
 
@@ -206,30 +209,22 @@ def smoothData(timeline):
 					count_up = i+1
 					count_down = i-1
 					searching = True
-					search_up = True
-					search_down = True
 
 					# So long as you are at least doing one of the following, then search in a direction
 					while (searching == True):
 						if (timeline[count_up][1] == timeline[count_down][1]):
-							if count_up+1 in range(0, timeline.shape[0]):
+							if (count_up+1 in range(0, timeline.shape[0])):
 								count_up += 1
-							else:
-								search_up = False
 
-							if count_down-1 in range(0, timeline.shape[0]):
+							if (count_down-1 in range(0, timeline.shape[0])):
 								count_down -= 1
-							else:
-								search_down = False
-
-						if (search_up == False and search_down == False):
+						else:
 							searching = False
 
 					if (timeline[count_down][1] > timeline[count_up][1]):
 						timeline[i][0] = timeline[count_down][0]
 					else:
 						timeline[i][0] = timeline[count_up][0]
-
 
 		timeline = removeRepeats(timeline)
 
@@ -272,29 +267,16 @@ def main():
 	proportion = False, precision = 2, filled = True)
 	all(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=6k00'])
 	plt.figure(figsize = (14, 18))
-	# plt.imshow(plt.imread('tree.png'))
+	#plt.imshow(plt.imread('tree.png'))
 	plt.axis('off')
-	plt.show()
-
-	# TESTING # DELETE ##################
-	print("THESE ARE THE TOTAL PREDICTIONS:")
-	print(prediction_gini)
 
 	# Holds the initial timeline before the smoothing occurs
 	timeline = maneuverTimeline(prediction_gini)
 	np.savetxt("timeline.csv", timeline, delimiter = ",")
 
-	# TESTING #
-	print("THIS IS THE ORIGINAL TIMELINE:")
-	print(timeline)
-
 	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
-
-	# TESTING #
-	print("THIS IS THE VERY LAST FINAL VERY LAST TIMELINE:")
-	print(final_timeline)
 
 	# For converting the tree.dot to the proper tree.png
 	import os
