@@ -22,18 +22,18 @@ from subprocess import call
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	#balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
 	# Macbook
-	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
 
 	return balance_train_data
 
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	#balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
 	# Macbook
-	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
 
 	return balance_test_data
 
@@ -42,9 +42,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	#X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
@@ -238,6 +238,28 @@ def smoothData(timeline):
 
 	return timeline
 
+# Breaks down the timeline to be able to expand it into the same format the predictions were in order to test the accuracy
+def redoAccuracy(timeline):
+	print ("this is the timeline before calling remove repeats: ")
+	print (timeline)
+	timeline = removeRepeats(timeline)
+	print ("this is the timeline after calling remove repeats: ")
+	print (timeline)
+
+	timeline = timeline.astype(int)
+
+	final_pred = []
+
+	for i in range(timeline.shape[0]):
+		size = timeline[i][1]
+		for k in range(size):
+			final_pred.append(timeline[i][0])
+
+	print ("this is the final prediction")
+	print (final_pred)
+	return final_pred
+
+
 # Driver
 def main():
 	# Import data
@@ -277,6 +299,13 @@ def main():
 	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
+
+	# Holds the expanded version of the timeline
+	final_pred = redoAccuracy(final_timeline)
+	np.savetxt("final_pred.csv", final_pred, delimiter = ",")
+
+	# Calculate and print accuracy of the final predictions along with confusion matrix
+	accuracy(test_ans, final_pred)
 
 	# For converting the tree.dot to the proper tree.png
 	import os
