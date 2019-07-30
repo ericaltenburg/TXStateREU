@@ -240,12 +240,7 @@ def smoothData(timeline):
 
 # Breaks down the timeline to be able to expand it into the same format the predictions were in order to test the accuracy
 def redoAccuracy(timeline):
-	print ("this is the timeline before calling remove repeats: ")
-	print (timeline)
 	timeline = removeRepeats(timeline)
-	print ("this is the timeline after calling remove repeats: ")
-	print (timeline)
-
 	timeline = timeline.astype(int)
 
 	final_pred = []
@@ -255,8 +250,6 @@ def redoAccuracy(timeline):
 		for k in range(size):
 			final_pred.append(timeline[i][0])
 
-	print ("this is the final prediction")
-	print (final_pred)
 	return final_pred
 
 
