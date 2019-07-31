@@ -19,18 +19,18 @@ from subprocess import call
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
-	balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
+	#balance_train_data = pd.read_csv('/home/user1/Documents/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
 	# Macbook
-	#balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
+	balance_train_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/AllSimulationTrainingDataNoTurn2.csv', sep = ',', header = None)
 
 	return balance_train_data
 
 # Import data being used for testing as csv
 def importTestData():
 	# Lab Desktop
-	balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
+	#balance_test_data = pd.read_csv('/home/user1/Documents/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
 	# Macbook
-	#balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
+	balance_test_data = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/TestCSVNoTurn2.csv', sep = ',', header = None)
 
 	return balance_test_data
 
@@ -39,9 +39,9 @@ def splitTimelineData():
 	# Import the csv containing the final timeline to isolate the predictions. Overall for testing the answers for accuracy after the smoothing
 
 	# Lab Desktop
-	X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	#X = pd.read_csv('/home/user1/Documents/TXStateREU/final_timeline.csv', sep = ',', header = None)
 	# Macbook
-	#X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
+	X = pd.read_csv('/Users/ealtenburg/Documents/GitHub/TXStateREU/final_timeline.csv', sep = ',', header = None)
 
 	predictions = X.values[:, 0]
 
