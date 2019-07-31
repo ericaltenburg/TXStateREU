@@ -16,9 +16,6 @@ from IPython.display import Image
 import matplotlib.pyplot as plt 
 from subprocess import call
 
-# TODO:
-# - Create accuracy measurement for the final timeline and test against prediction
-
 # Imports data being used for training as csv
 def importTrainData():
 	# Lab Desktop
