@@ -14,3 +14,4 @@ AvgCurr2 = (totAmp2.*3.6)./Sec2;
 AvgPwr2 = (totPwr2)./Sec2;
 
 BPwrRegressBat2(AvgPwr2, Sec2);
+PowerLinear2(AvgPwr2, totPwr2);
