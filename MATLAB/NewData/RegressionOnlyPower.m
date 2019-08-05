@@ -27,3 +27,8 @@ AvgPwr = (totPwr)./Sec;
 
 BPwrRegress(AvgPwr, Sec);
 PwrToCurrRegress(AvgPwr, AvgCurr);
+PowerLinear1(AvgPwr, totPwr);
+
+
+
+
