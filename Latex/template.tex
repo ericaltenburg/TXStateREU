@@ -12,28 +12,33 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{lipsum}
+\usepackage{biblatex}
+
+
+\bibliography{references.bib}
+
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
 
 
 \author{
-  Eric R. Altenburg \\
+  Eric R. Altenburg\\
   Computer Science\\
   Stevens Institute of Technology\\
   Hoboken, NJ \\
-  \texttt{ealtenbu@stevens.edu} \\
+  \texttt{ealtenbu@stevens.edu}\\
    \And
- John H. Graves \\
+  John H. Graves\\
   Computer Science\\
   Brown University\\
   Providence, RI \\
   \texttt{john\textunderscore graves@brown.edu} \\
   \And
- Qijun Gu \\
+  Qijun Gu\\
   Computer Science\\
   Texas State University\\
-  San Marcos, Tx \\
-  \texttt{qg11@txstate.edu} \\
+  San Marcos, TX \\
+  \texttt{qg11@txstate.edu}\\
 }
 
 \begin{document}
@@ -49,8 +54,20 @@ This is the abstract...
 
 
 \section{Introduction}
-This is the introduction \par
-Intro Paragraph 2
+While there are methods that allow a user to observe the state of charge on a given unmanned aerial vehicle’s (UAV) battery in real-time, there is no accurate or efficient approach to predict the total battery consumption of planned mission.\par
+
+As UAV technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a remote location. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. It is speculated that if UAVs are to replace delivery trucks, then not only will it cut down on cost but it will have a positive effect on the environment as well due to fewer emissions being released by these vehicles compared to standard trucks 
+{\textit {(MIGHT NEED TO BACK THIS UP, I’M JUST HYPING UP THE DRONES)}}
+. However, UAVs are not exclusive to corporate delivery systems, they can also be used for sport surveillance purposes and police work in situations where it might not be safe to send a human being in an area; an example being a bomb threat. Therefore, by knowing the predicted battery consumption, the user is at a much greater advantage as they can determine whether a mission is feasible or if the UAV will require a battery change.\par
+
+Since drones are relatively new, not much research has been done with them and their batteries. It is because of this lack of literature, that many have had such difficulty creating a functional model capable of predicting the battery consumption. Coupled with this are assumptions made in the previous attempts which make it difficult to pinpoint what exactly went wrong, and how to go about improving it. An example of this can be in \cite{8662581} written by AUTHORS in which they assumed total battery energy consumption is constant from flight-to-flight, however, through various flights, it was found to be variable. 
+
+
+\section{Related Work}
+
+Blah blah blah blah\par
+
+blah blah
 
 
 \section{Background}
@@ -62,6 +79,7 @@ See Section \ref{sec:headings}.
 \subsection{Previous Research}
 Previous research \par
 Equation Example: \newline
+
 \begin{equation}
 \xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
 \end{equation}
@@ -72,7 +90,7 @@ The Mentioned paragraph continues onto muliple lines it is a paragraph after all
 
 \section{Methods}
 \label{sec:others}
-When you have a paragraph you can also cite it. \cite{kour2014real,kour2014fast} and see \cite{hadash2018estimate}.
+When you have a paragraph you can also cite it. \cite{8662581} and see \cite{inbook}.
 
 And for a URL, the documentation for \verb+natbib+ may be found at
 \begin{center}
@@ -135,36 +153,36 @@ See awesome Table~\ref{tab:table}.
 \end{itemize}
 
 
-\bibliographystyle{unsrt}  
+%\bibliographystyle{unsrt}  
 %\bibliography{references}  %%% Remove comment to use the external .bib file (using bibtex).
 %%% and comment out the ``thebibliography'' section.
 
 
 %%% Comment out this section when you \bibliography{references} is enabled.
-\begin{thebibliography}{1}
+%\begin{thebibliography}{1}
+%
+%\bibitem{kour2014real}
+%George Kour and Raid Saabne.
+%\newblock Real-time segmentation of on-line handwritten arabic script.
+%\newblock In {\em Frontiers in Handwriting Recognition (ICFHR), 2014 14th
+%  International Conference on}, pages 417--422. IEEE, 2014.
+%
+%\bibitem{kour2014fast}
+%George Kour and Raid Saabne.
+%\newblock Fast classification of handwritten on-line arabic characters.
+%\newblock In {\em Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
+%  International Conference of}, pages 312--318. IEEE, 2014.
+%
+%\bibitem{hadash2018estimate}
+%Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
+%  Jacovi.
+%\newblock Estimate and replace: A novel approach to integrating deep neural
+%  networks with existing applications.
+%\newblock {\em arXiv preprint arXiv:1804.09028}, 2018.
+%
+%\end{thebibliography}
 
-\bibitem{kour2014real}
-George Kour and Raid Saabne.
-\newblock Real-time segmentation of on-line handwritten arabic script.
-\newblock In {\em Frontiers in Handwriting Recognition (ICFHR), 2014 14th
-  International Conference on}, pages 417--422. IEEE, 2014.
-
-\bibitem{kour2014fast}
-George Kour and Raid Saabne.
-\newblock Fast classification of handwritten on-line arabic characters.
-\newblock In {\em Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
-  International Conference of}, pages 312--318. IEEE, 2014.
-
-\bibitem{hadash2018estimate}
-Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
-  Jacovi.
-\newblock Estimate and replace: A novel approach to integrating deep neural
-  networks with existing applications.
-\newblock {\em arXiv preprint arXiv:1804.09028}, 2018.
-
-\end{thebibliography}
-
-\ack{kjlfsjls}
+%\ack{kjlfsjls}
 
 
 \end{document}
