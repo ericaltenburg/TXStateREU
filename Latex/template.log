@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 AUG 2019 10:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 AUG 2019 10:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -246,256 +246,30 @@ Package microtype Info: Loading configuration file microtype.cfg.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/microtype/microtype.cfg
 File: microtype.cfg 2019/02/28 v2.7b microtype main configuration file (RS)
 ))
-(/usr/local/texlive/2019/texmf-dist/tex/latex/lipsum/lipsum.sty
-(/usr/local/texlive/2019/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2019-05-07 L3 programming layer (loader) 
-
-(/usr/local/texlive/2019/texmf-dist/tex/latex/l3kernel/expl3-code.tex
-Package: expl3 2019-05-07 L3 programming layer (code)
-\c_max_int=\count107
-\l_tmpa_int=\count108
-\l_tmpb_int=\count109
-\g_tmpa_int=\count110
-\g_tmpb_int=\count111
-\g__kernel_prg_map_int=\count112
-\c__ior_term_ior=\count113
-\c_log_iow=\count114
-\l_iow_line_count_int=\count115
-\l__iow_line_target_int=\count116
-\l__iow_one_indent_int=\count117
-\l__iow_indent_int=\count118
-\c_zero_dim=\dimen129
-\c_max_dim=\dimen130
-\l_tmpa_dim=\dimen131
-\l_tmpb_dim=\dimen132
-\g_tmpa_dim=\dimen133
-\g_tmpb_dim=\dimen134
-\c_zero_skip=\skip59
-\c_max_skip=\skip60
-\l_tmpa_skip=\skip61
-\l_tmpb_skip=\skip62
-\g_tmpa_skip=\skip63
-\g_tmpb_skip=\skip64
-\c_zero_muskip=\muskip11
-\c_max_muskip=\muskip12
-\l_tmpa_muskip=\muskip13
-\l_tmpb_muskip=\muskip14
-\g_tmpa_muskip=\muskip15
-\g_tmpb_muskip=\muskip16
-\l_keys_choice_int=\count119
-\l__intarray_loop_int=\count120
-\c__intarray_sp_dim=\dimen135
-\g__intarray_font_int=\count121
-\c__fp_leading_shift_int=\count122
-\c__fp_middle_shift_int=\count123
-\c__fp_trailing_shift_int=\count124
-\c__fp_big_leading_shift_int=\count125
-\c__fp_big_middle_shift_int=\count126
-\c__fp_big_trailing_shift_int=\count127
-\c__fp_Bigg_leading_shift_int=\count128
-\c__fp_Bigg_middle_shift_int=\count129
-\c__fp_Bigg_trailing_shift_int=\count130
-\c__kernel_randint_max_int=\count131
-\g__fp_array_int=\count132
-\l__fp_array_loop_int=\count133
-\l__sort_length_int=\count134
-\l__sort_min_int=\count135
-\l__sort_top_int=\count136
-\l__sort_max_int=\count137
-\l__sort_true_max_int=\count138
-\l__sort_block_int=\count139
-\l__sort_begin_int=\count140
-\l__sort_end_int=\count141
-\l__sort_A_int=\count142
-\l__sort_B_int=\count143
-\l__sort_C_int=\count144
-\l__tl_analysis_normal_int=\count145
-\l__tl_analysis_index_int=\count146
-\l__tl_analysis_nesting_int=\count147
-\l__tl_analysis_type_int=\count148
-\l__regex_internal_a_int=\count149
-\l__regex_internal_b_int=\count150
-\l__regex_internal_c_int=\count151
-\l__regex_balance_int=\count152
-\l__regex_group_level_int=\count153
-\l__regex_mode_int=\count154
-\c__regex_cs_in_class_mode_int=\count155
-\c__regex_cs_mode_int=\count156
-\l__regex_catcodes_int=\count157
-\l__regex_default_catcodes_int=\count158
-\c__regex_catcode_D_int=\count159
-\c__regex_catcode_S_int=\count160
-\c__regex_catcode_L_int=\count161
-\c__regex_catcode_O_int=\count162
-\c__regex_catcode_A_int=\count163
-\c__regex_all_catcodes_int=\count164
-\l__regex_show_lines_int=\count165
-\l__regex_min_state_int=\count166
-\l__regex_max_state_int=\count167
-\l__regex_left_state_int=\count168
-\l__regex_right_state_int=\count169
-\l__regex_capturing_group_int=\count170
-\l__regex_min_pos_int=\count171
-\l__regex_max_pos_int=\count172
-\l__regex_curr_pos_int=\count173
-\l__regex_start_pos_int=\count174
-\l__regex_success_pos_int=\count175
-\l__regex_curr_char_int=\count176
-\l__regex_curr_catcode_int=\count177
-\l__regex_last_char_int=\count178
-\l__regex_case_changed_char_int=\count179
-\l__regex_curr_state_int=\count180
-\l__regex_step_int=\count181
-\l__regex_min_active_int=\count182
-\l__regex_max_active_int=\count183
-\l__regex_replacement_csnames_int=\count184
-\l__regex_match_count_int=\count185
-\l__regex_min_submatch_int=\count186
-\l__regex_submatch_int=\count187
-\l__regex_zeroth_submatch_int=\count188
-\g__regex_trace_regex_int=\count189
-\c_empty_box=\box27
-\l_tmpa_box=\box28
-\l_tmpb_box=\box29
-\g_tmpa_box=\box30
-\g_tmpb_box=\box31
-\l__box_top_dim=\dimen136
-\l__box_bottom_dim=\dimen137
-\l__box_left_dim=\dimen138
-\l__box_right_dim=\dimen139
-\l__box_top_new_dim=\dimen140
-\l__box_bottom_new_dim=\dimen141
-\l__box_left_new_dim=\dimen142
-\l__box_right_new_dim=\dimen143
-\l__box_internal_box=\box32
-\l__coffin_internal_box=\box33
-\l__coffin_internal_dim=\dimen144
-\l__coffin_offset_x_dim=\dimen145
-\l__coffin_offset_y_dim=\dimen146
-\l__coffin_x_dim=\dimen147
-\l__coffin_y_dim=\dimen148
-\l__coffin_x_prime_dim=\dimen149
-\l__coffin_y_prime_dim=\dimen150
-\c_empty_coffin=\box34
-\l__coffin_aligned_coffin=\box35
-\l__coffin_aligned_internal_coffin=\box36
-\l_tmpa_coffin=\box37
-\l_tmpb_coffin=\box38
-\g_tmpa_coffin=\box39
-\g_tmpb_coffin=\box40
-\l__coffin_bounding_shift_dim=\dimen151
-\l__coffin_left_corner_dim=\dimen152
-\l__coffin_right_corner_dim=\dimen153
-\l__coffin_bottom_corner_dim=\dimen154
-\l__coffin_top_corner_dim=\dimen155
-\l__coffin_scaled_total_height_dim=\dimen156
-\l__coffin_scaled_width_dim=\dimen157
-\c__coffin_empty_coffin=\box41
-\l__coffin_display_coffin=\box42
-\l__coffin_display_coord_coffin=\box43
-\l__coffin_display_pole_coffin=\box44
-\l__coffin_display_offset_dim=\dimen158
-\l__coffin_display_x_dim=\dimen159
-\l__coffin_display_y_dim=\dimen160
-\g__file_internal_ior=\read1
-\l__seq_internal_a_int=\count190
-\l__seq_internal_b_int=\count191
-\c__deprecation_minus_one=\count192
-)
-(/usr/local/texlive/2019/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
-File: l3pdfmode.def 2019-04-06 v L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count193
-\l__driver_pdf_tmp_box=\box45
-))
-(/usr/local/texlive/2019/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2019-05-03 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count194
-\g__xparse_grabber_int=\count195
-\l__xparse_m_args_int=\count196
-\l__xparse_v_nesting_int=\count197
-)
-Package: lipsum 2019/01/02 v2.2 150 paragraphs of Lorem Ipsum dummy text
-
-(/usr/local/texlive/2019/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
-File: lipsum.ltd.tex 2019/01/02 v2.2 The Lorem ipsum dummy text
-))
-\bibdata{references}
-No file template.bbl.
-(./template.aux
-./template.aux:19: Undefined control sequence.
-l.19 \abx@aux@refcontext
-                        {nty/global//global/global}
-? h
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-? 
-
-./template.aux:19: LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.19 \abx@aux@refcontext{n
-                          ty/global//global/global}
-? h
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-? 
-./template.aux:20: Undefined control sequence.
-l.20 \abx@aux@cite
-                  {Prasetia}
-? h
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-? 
-./template.aux:21: Undefined control sequence.
-l.21 \abx@aux@segm
-                  {0}{0}{Prasetia}
-? 
-./template.aux:27: Undefined control sequence.
-l.27 \abx@aux@cite
-                  {8662581}
-? 
-./template.aux:28: Undefined control sequence.
-l.28 \abx@aux@segm
-                  {0}{0}{8662581}
-? 
-./template.aux:29: Undefined control sequence.
-l.29 \abx@aux@cite
-                  {inbook}
-? 
-./template.aux:30: Undefined control sequence.
-l.30 \abx@aux@segm
-                  {0}{0}{inbook}
-? 
-)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) (./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 44.
- (/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1ptm.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 40.
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 *geometry* driver: auto-detecting
@@ -532,9 +306,6 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-[1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: letterpaper
@@ -567,25 +338,25 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box46
-Package hyperref Info: Link coloring OFF on input line 44.
+\AtBeginShipoutBox=\box27
+Package hyperref Info: Link coloring OFF on input line 40.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count198
+\c@section@level=\count107
 )
-LaTeX Info: Redefining \ref on input line 44.
-LaTeX Info: Redefining \pageref on input line 44.
-LaTeX Info: Redefining \nameref on input line 44.
+LaTeX Info: Redefining \ref on input line 40.
+LaTeX Info: Redefining \pageref on input line 40.
+LaTeX Info: Redefining \nameref on input line 40.
 
 (./template.out) (./template.out)
 \@outlinefile=\write3
 \openout3 = `template.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 44.
+LaTeX Info: Redefining \microtypecontext on input line 40.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -603,7 +374,7 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 46.
+LaTeX Font Info:    Try loading font information for U+msa on input line 42.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -611,7 +382,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2019/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 46.
+LaTeX Font Info:    Try loading font information for U+msb on input line 42.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -620,8 +391,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 46.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 46.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 42.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 42.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -631,43 +402,56 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 47.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 43.
 LaTeX Font Info:    Font shape `T1/ptm/bx/sc' in size <12> not available
-(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 47.
+(Font)              Font shape `T1/ptm/b/sc' tried instead on input line 43.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 53.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 49.
 
 
-LaTeX Warning: Citation `Prasetia' on page 2 undefined on input line 61.
+LaTeX Warning: Citation `Prasetia' on page 1 undefined on input line 57.
 
-[2
+[1
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
 
  []
 
 
-LaTeX Warning: Citation `8662581' on page 3 undefined on input line 91.
+LaTeX Warning: Citation `Prasetia' on page 2 undefined on input line 87.
 
 
-LaTeX Warning: Citation `inbook' on page 3 undefined on input line 91.
+LaTeX Warning: Citation `Chen' on page 2 undefined on input line 87.
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 148.
+./template.tex:109: Undefined control sequence.
+l.109 \lipsum
+             [10]
+? 
+./template.tex:111: Undefined control sequence.
+l.111 \lipsum
+             [11]
+? 
+./template.tex:122: Undefined control sequence.
+l.122 \lipsum
+             [12]
+? 
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 144.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 148.
- [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 185.
- [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 185.
-
-(./template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 185.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 185.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 144.
+ [2]
+No file template.bbl.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
+[3]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
+ (./template.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
 Package rerunfilecheck Info: File `template.out' has not changed.
 (rerunfilecheck)             Checksum: 41AE3A31153B3FC75723B2E640FDB402;412.
 
@@ -677,16 +461,16 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 185.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 16734 strings out of 492616
- 302938 string characters out of 6129482
- 652843 words of memory out of 5000000
- 20449 multiletter control sequences out of 15000+600000
- 580887 words of font info for 119 fonts, out of 8000000 for 9000
+ 7091 strings out of 492616
+ 110434 string characters out of 6129482
+ 233332 words of memory out of 5000000
+ 10850 multiletter control sequences out of 15000+600000
+ 51279 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,10n,63p,1100b,385s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,10n,45p,1100b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
 exlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
@@ -697,15 +481,14 @@ ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive
 9/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2019/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2019/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf
--dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2019/texmf-d
-ist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2019/texmf-dis
-t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/ty
-pe1/urw/times/utmbi8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/t
-imes/utmr8a.pfb>
-Output written on template.pdf (4 pages, 155998 bytes).
+-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2019/texmf-d
+ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/
+type1/urw/times/utmbi8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw
+/times/utmr8a.pfb>
+Output written on template.pdf (3 pages, 139060 bytes).
 PDF statistics:
- 126 PDF objects out of 1000 (max. 8388607)
- 105 compressed objects within 2 object streams
+ 118 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
  17 named destinations out of 1000 (max. 500000)
  21569 words of extra memory for PDF output out of 24883 (max. 10000000)
 
