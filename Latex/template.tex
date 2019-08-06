@@ -2,7 +2,6 @@
 
 
 \usepackage{arxiv}
-
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{hyperref}       % hyperlinks
@@ -59,13 +58,38 @@ While there have been some attempts at creating such a model, there has not been
 
 
 \section{Related Work}
+With very few pieces of literature in the field of UAV battery consumption, there were a select few that stood out. Previous attempts at creating a similar model have attempted to separate the maneuvers a UAV performs during its flight into separate categories such as vertical hover, and horizontal movements \cite{Prasetia}. While others took a more detailed approach and had back, down, forward, roll left, roll right, up, yaw left, and yaw right \cite{Corral}. Although these two studies were not entirely successful, they were still able to provide motivation to isolate the maneuvers into ascending, descending, hovering, and any horizontal movement.\par
 
-Blah blah blah blah\par
-
-blah blah
+As previously stated, these studies come with slight caveats. For the case of the detailed maneuver model, the data they collected on their quad-copter showed surprising results as shown in Figure 1. Here, they were able to map the current in Amps being drawn by each maneuver and deduced that down and roll left consumed little to no battery; up consumed the most; back, forward, roll right, yaw left, and yaw right consumed an amount in between the others. There are some aspects of this finding that raised concern, for example, roll left consumed a minuscule amount of current whereas roll right consumed much more. This puts roll left on the same level as moving down which should not happen. \par
 
 
-\section{Background}
+\subsection{Improvements}
+After collecting data from several flights, there was no similar pattern to that of their original findings, therefore, leading to the conclusion that roll left did not consume less power than roll right. Additionally, another finding in the data set showed that the differences in power consumption between all maneuvers in the horizontal plane were minute, thus allowing the classification of maneuvers to only include ascend, descend, hover, and horizontal movement. However, it is important to note that the UAV they used had four total rotors (quad-copter) while the one used primarily in this project had six rotors (hexa-copter) which could lead to a difference in results.
+
+
+\section{Methodology}
+fjdklajfdk
+
+
+\section{Data Collection}
+jfkladjflas
+
+
+\section{Methods and Procedure}
+intro stuff just talking, blah blah blah\par
+
+Maybe put the methodology stuff in here
+
+
+\subsection{Machine Learning}
+This is all the machine learning and stuff
+
+
+\subsection{Power Statistics}
+This is all the power statistics and stuff
+
+
+\section{Results}
 \label{sec:headings}
 
 Background Info \par
