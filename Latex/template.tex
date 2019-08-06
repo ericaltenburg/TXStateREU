@@ -12,6 +12,7 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{cite}
+\usepackage{lipsum}
 
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
@@ -41,7 +42,7 @@
 \maketitle
 
 \begin{abstract}
-This is the abstract...
+\lipsum[1]
 \end{abstract}
 
 
@@ -54,7 +55,7 @@ As unmanned aerial vehicle (UAV) technology improves, these devices become more 
 
 One of the many things holding UAVs back from doing such things are the simple fact that the battery usage is not easily predictable. By having the ability to know how much battery a given drone will consume can put the user at a much higher advantage as they can now determine whether or not a certain flight mission is feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
 
-While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight ~\cite{Prasetia}(CITE 3), however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field. 
+While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field. 
 
 
 \section{Related Work}
@@ -84,7 +85,7 @@ The Mentioned paragraph continues onto muliple lines it is a paragraph after all
 
 \section{Methods}
 \label{sec:others}
-When you have a paragraph you can also cite it. ~\cite{Prasetia} and see ~\cite{Chen}.
+When you have a paragraph you can also cite it. \cite{Prasetia} and see \cite{Chen} and see \cite{Corral}.
 
 And for a URL, the documentation for \verb+natbib+ may be found at
 \begin{center}
@@ -146,35 +147,9 @@ See awesome Table~\ref{tab:table}.
 \item Aliquam dignissim blandit est, in dictum tortor gravida eget. In ac rutrum magna.
 \end{itemize}
 
-\bibliography{references}{}
-\bibliographystyle{plain}
-%\bibliographystyle{unsrt}  
-%\bibliography{references} 
+\bibliography{references}
+\bibliographystyle{ieeetr}
 
-
-% Comment out this section when you \bibliography{references} is enabled.
-%\begin{thebibliography}{1}
-%
-%\bibitem{kour2014real}
-%George Kour and Raid Saabne.
-%\newblock Real-time segmentation of on-line handwritten arabic script.
-%\newblock In {\em Frontiers in Handwriting Recognition (ICFHR), 2014 14th
-%  International Conference on}, pages 417--422. IEEE, 2014.
-%
-%\bibitem{kour2014fast}
-%George Kour and Raid Saabne.
-%\newblock Fast classification of handwritten on-line arabic characters.
-%\newblock In {\em Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
-%  International Conference of}, pages 312--318. IEEE, 2014.
-%
-%\bibitem{hadash2018estimate}
-%Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
-%  Jacovi.
-%\newblock Estimate and replace: A novel approach to integrating deep neural
-%  networks with existing applications.
-%\newblock {\em arXiv preprint arXiv:1804.09028}, 2018.
-%
-%\end{thebibliography}
 
 %\ack{kjlfsjls}
 

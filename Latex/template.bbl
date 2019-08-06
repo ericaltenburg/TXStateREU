@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{Prasetia}
+A.~S. {Prasetia}, R.~{Wai}, Y.~{Wen}, and Y.~{Wang}, ``Mission-based energy
+  consumption prediction of multirotor uav,'' {\em IEEE Access}, vol.~7,
+  pp.~33055--33063, 2019.
+
+\bibitem{Chen}
+Y.~Chen, D.~Baek, A.~Bocca, A.~Macii, E.~Macii, and M.~Poncino, ``A case for a
+  battery-aware model of drone energy consumption,'' pp.~1--8, 10 2018.
+
+\bibitem{Corral}
+L.~Corral, I.~Fronza, N.~El~Ioini, and A.~Ibershimi, {\em A Measurement Tool to
+  Track Drones Battery Consumption During Flights}.
+\newblock 01 2016.
+
+\end{thebibliography}
