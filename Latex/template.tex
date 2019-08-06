@@ -12,10 +12,10 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{lipsum}
-\usepackage{biblatex}
 
 
-\bibliography{references.bib}
+\bibliographystyle{unsrt}  
+\bibliography{references} 
 
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
@@ -50,17 +50,15 @@ This is the abstract...
 
 
 % keywords can be removed
-\keywords{First keyword \and Second keyword \and More}
+\keywords{Unmanned Aerial Vehicle \and UAV \and Drone \and Battery \and Battery Consumption \and Battery Usage \and Predict}
 
 
 \section{Introduction}
-While there are methods that allow a user to observe the state of charge on a given unmanned aerial vehicle’s (UAV) battery in real-time, there is no accurate or efficient approach to predict the total battery consumption of planned mission.\par
+As unmanned aerial vehicle (UAV) technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a route location. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. Aside from being able to easily deliver packages, it is possible that by replacing delivery trucks all together, the total amount of emissions could be reduced which would have an overall positive impact on the environment. This technology is not limited to the aforementioned companies, instead, it is also used by archeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Another use these UAVs have are with the police force as there are often situations where it is not entirely safe to send in an officer, however, by allowing that officer to remotely control a drone, it allows him and many others to be safe.\par
 
-As UAV technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a remote location. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. It is speculated that if UAVs are to replace delivery trucks, then not only will it cut down on cost but it will have a positive effect on the environment as well due to fewer emissions being released by these vehicles compared to standard trucks 
-{\textit {(MIGHT NEED TO BACK THIS UP, I’M JUST HYPING UP THE DRONES)}}
-. However, UAVs are not exclusive to corporate delivery systems, they can also be used for sport surveillance purposes and police work in situations where it might not be safe to send a human being in an area; an example being a bomb threat. Therefore, by knowing the predicted battery consumption, the user is at a much greater advantage as they can determine whether a mission is feasible or if the UAV will require a battery change.\par
+One of the many things holding UAVs back from doing such things are the simple fact that the battery usage is not easily predictable. By having the ability to know how much battery a given drone will consume can put the user at a much higher advantage as they can now determine whether or not a certain flight mission is feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
 
-Since drones are relatively new, not much research has been done with them and their batteries. It is because of this lack of literature, that many have had such difficulty creating a functional model capable of predicting the battery consumption. Coupled with this are assumptions made in the previous attempts which make it difficult to pinpoint what exactly went wrong, and how to go about improving it. An example of this can be in \cite{8662581} written by AUTHORS in which they assumed total battery energy consumption is constant from flight-to-flight, however, through various flights, it was found to be variable. 
+While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}(CITE 3), however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field. 
 
 
 \section{Related Work}
@@ -153,8 +151,7 @@ See awesome Table~\ref{tab:table}.
 \end{itemize}
 
 
-%\bibliographystyle{unsrt}  
-%\bibliography{references}  %%% Remove comment to use the external .bib file (using bibtex).
+ %%% Remove comment to use the external .bib file (using bibtex).
 %%% and comment out the ``thebibliography'' section.
 
 
