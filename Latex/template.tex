@@ -14,7 +14,7 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{lipsum}
-
+\usepackage{graphicx}
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
 
@@ -93,6 +93,9 @@ The third type of data collected was data from a grounded drone with its propell
 In order to reduce the total amount of human error while evaluating maneuvers and streamline the overall process of estimating the battery consumption, machine learning proved to be a helpful tool. With the use of a classifier decision tree, the user would be capable of loading up simulation data from a desired flight plan, and the model will output a precise timeline of maneuvers the drone will perform every tenth of a second. As previously mentioned, this was a useful alternative to simply evaluating a flight pattern by eye as having the maneuvers of a drone off by a couple seconds could result in immensely different results when in practice. \par
 
 The process of choosing this model was done so by evaluating what was needed for this project. Seeming as though there was no need for regression, it was clear that a model that worked with classification had to be used. While this narrowed the overall amount of options to choose from, there were still quite a bit left. Originally, random forests were set to be implemented, however, they tend to be costly in terms of time, and with the data smoothing algorithm that will be evaluated later on, speed was a concern. Finally, a decision tree was settled on due to its speed, easiness to understand, and favorable accuracy results. The entire tree was based on the Gini index–the probability of whether a decision is wrong or not, therefore, generally as one traverses farther down the tree, the Gini index should become smaller. An example of the tree can be seen in figure XX in which it shows a tree with a depth of XX. Generally speaking, finding the right depth of a tree depends entirely on the data as one does not want to over or under fit the data which will yield sub par results. \par
+
+
+\includegraphics[scale = 0.25]{images/tree}
 
 After the model is finished with all of its predictions, it outputs them all into a standard array, and once a simple compression algorithm is completed (see section XX) the timeline resembles one similar to figure XX. This however is still not the final result as there are still instances of sporadic predictions with a time value less than 10 (1 second). To correct this, a data smoothing algorithm is then applied (see section XX) where it will evaluate each maneuver to see whether it is below the 10 time unit threshold. If it is, it will then look above and below to determine which value to change it to; the maneuver will default to the one with the highest time value. The final result is then parsed to a comma-separate values (CSV) file where it will be used in average power prediction. An example of a final timeline can be seen in figure XX.
 
