@@ -280,13 +280,9 @@ def main():
 	timeline = maneuverTimeline(prediction_gini)
 	np.savetxt("timeline.csv", timeline, delimiter = ",")
 
-	print(timeline)
-
 	# Holds the final timeline with the smoothed data, ready to be passed into matlab models
 	final_timeline = smoothData(timeline)
 	np.savetxt("final_timeline.csv", final_timeline, delimiter = ",")
-
-	print(final_timeline)
 
 	# Holds the expanded version of the timeline
 	final_pred = redoAccuracy(final_timeline)
@@ -295,7 +291,7 @@ def main():
 	# Calculate and print accuracy of the final predictions along with confusion matrix
 	accuracy(test_ans, final_pred)
 
-	# For converting the tree.dot to the proper tree.png
+	# For converting the tree.dot to the proper tree.png. This might cause issues with different operating systems.
 	import os
 	os.system("dot -Tpng tree.dot -o tree.png")
 
