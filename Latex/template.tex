@@ -88,19 +88,20 @@
 \keywords{Unmanned Aerial Vehicle \and UAV \and Drone \and Battery \and Battery Consumption \and Battery Usage \and Predict}
 
 
-\section{Introduction}
+\section{Introduction}[A]
 In recent years, unmanned aerial vehicle (UAV) have become increasingly popular in non-military contexts. As their technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a location along a route. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. As drones become more effective at delivering packages, they can replace trucks on short, relatively light deliveries, which will reduce the total amount of carbon dioxide emissions and have a positive impact on the environment \cite{Goodchild}. This technology is not limited to the aforementioned companies, instead, it is also used by archaeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Police forces also have begun to use these UAVs in situations where it is not entirely safe to send in an officer. By allowing that officer to remotely control a drone, it allows him and many others to be safe.\par
 
 One of the many things holding UAVs back from doing such things are the simple fact that the Lithium Polymer (LiPo) battery usage is not easily predictable. On a basic level, the reason this battery consumption is difficult to predict is that LiPo batteries do not consume voltage linearly. Its voltage curve starts off fairy steep, but quickly levels out for the majority of its capacity before dropping off quickly when it reaches low energy levels (See Fig \ref{fig:volt}). If these non-linear nature of a battery could be properly quantified though, users could have the ability to accurately predict how much battery a given drone flight will consume which would allow them to determine whether or not certain flight missions were feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
 
 \begin{figure}
   \centering
+  \large{\textbf{LiPo Battery Voltage Curve}}\par
   \includegraphics[width = 100mm]{images/voltage.png}
   \caption{The voltage curve of a standard LiPo battery.}
   \label{fig:volt}
 \end{figure}
 
-While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field.
+While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field. 
 
 
 \section{Related Work}
@@ -175,12 +176,39 @@ After the model is finished with all of its predictions, it outputs them all int
 	\caption{Table2}
 \endminipage\hfill
 \end{figure}
+\subsection{Machine Learning}
+This is all the machine learning and stuff
 
 
 \subsection{Power Statistics}
-To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point). \par
+To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point).\par
 
-As Figure B shows, comparing the data from a single maneuver, in this case hovering, shows that there are large differences between these tests. This was explainable by different configurations in the drone, including parameters, settings, and even different copies of the same type of drone and battery. Of the five flights, flight one, flights two and three, and flights four and five were all under the same conditions, so the flights were separated into those three groups. A weighted average of power for each group of flights was preformed, which controlled for the frequency of different maneuvers. It did this by weighting each maneuver with a weight proportional to the smaller duration of that maneuver between the two flight groups being compared. Figure C shows this process with real data. By finding the ratio of these weighted averages, a coefficient was found to scale the power data from the first two groups of flights, which put them on par with the average power of group three. The normalized data was then analyzed with a box plot split by maneuver and by finding the average power of each maneuver to use in the final model.\par
+\begin{figure}
+  \centering
+  \large{\textbf{Hover Power by Run}}\par
+  \includegraphics[width = 100mm]{images/HoverPlain.png}
+  \caption{Comparing the distribution of hovering between three groups of flights.}
+  \label{fig:hover}
+\end{figure}
+
+As Figure \ref{fig:hover} shows, comparing the data from a single maneuver, in this case hovering, shows that there are large differences between these tests. This was explainable by different configurations in the drone, including parameters, settings, and even different copies of the same type of drone and battery. Of the five flights, flight one, flights two and three, and flights four and five were all under the same conditions, so the flights were separated into those three groups. A weighted average of power for each group of flights was preformed, which controlled for the frequency of different maneuvers. It did this by weighting each maneuver with a weight proportional to the smaller duration of that maneuver between the two flight groups being compared. Figure  \ref{fig:Norm} shows this process with real data. By finding the ratio of these weighted averages, a coefficient was found to scale the power data from the first two groups of flights, which put them on par with the average power of group three. The normalized data was then analyzed with a box plot split by maneuver and by finding the average power of each maneuver to use in the final model.\par
+
+\begin{figure}
+\centering
+\large{\textbf{Normalizing Power Data}}\par
+\begin{subfigure}[b]{0.5\textwidth}
+  \centering
+   \includegraphics[width=70mm]{images/Normalizing1.png}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}[b]{0.5\textwidth}
+  \centering
+  \includegraphics[width=70mm]{images/Normalizing2.png}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{A demonstration of the weighted average computation to normalize the power data for run 1 (left) and runs 2 and 3 (right).}
+\label{fig:Norm}
+\end{figure}
 
 To examine the maximum flight time the data from the grounded tests which drained the battery were parsed to find the total energy of each flight and the average power of each flight. For flights where the  sensors stopped recording mid-test, the total current draw was recorded and the relationship between total current and total energy was analyzed with linear regression to attempt to find a power approximation from these flights, even though the actual metric was not recorded. While processing this data it was noticed that the total energy of these flights was not constant as previous battery analysis had assumed \cite{Prasetia}, so further analysis was done to compare the total energy consumption of a test with its average power.
 
@@ -191,18 +219,38 @@ To examine the maximum flight time the data from the grounded tests which draine
 \subsection{Machine Learning}
 \subsection{Power Statistics}
 
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width = 100mm]{images/powerfinal.png}
-  \caption{Sample figure caption.}
-  \label{fig:fig1}
-\end{figure}
+
 
 \begin{figure}
   \centering
-  \includegraphics[width = 100mm]{images/FlightTime.png}
+  \large{\textbf{Adjusted Maneuver Power Distribution}}\par
+  \includegraphics[width = 100mm]{images/powerfinal.png}
   \caption{Sample figure caption.}
-  \label{fig:fig1}
+  \label{fig:powerfinal}
+\end{figure}
+
+
+\begin{table}
+  \centering
+  \large{\textbf{Average Maneuver Power (W)}}\par\medskip
+  \begin{tabular}{cccc}
+    \toprule
+    \cmidrule(r){1-2}
+    Ascend     & Descend     & Hover & Horizontal \\
+    \midrule
+    365.2 & 326.8  & 341.4 & 341.5    \\
+    \bottomrule
+  \end{tabular} \bigskip
+  \caption{Average power for each of the four maneuvers.}
+  \label{tab:table}
+\end{table}
+
+\begin{figure}
+  \centering
+  \large{\textbf{Predicting Maximum Flight Time from Average Power}}\par
+  \includegraphics[width = 100mm]{images/FlightTime.png}
+  \caption{A rational regression equation used to predict the maximum flight time from average power.}
+  \label{fig:flighttime}
 \end{figure}
 
 \begin{equation}
@@ -211,32 +259,33 @@ T={\frac {321.9p + 98770}{p + 29.3}}
 
 \begin{figure}
 \centering
+\large{\textbf{Relationship between Average Power and Total Energy}}\par
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
    \includegraphics[width=90mm]{images/AvgTotPwr.png}
-  \label{fig:sub1}
 \end{subfigure}%
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
   \includegraphics[width=90mm]{images/AvgTotPwr2.png}
-  \label{fig:sub2}
 \end{subfigure}
-\caption{A figure with two subfigures}
-\label{fig:test}
+\caption{Finding the linear regression relationship between average power and total energy.}
+\label{fig:avgtotpwr}
 \end{figure}
 
 \begin{figure}
   \centering
+  \large{\textbf{Relationship between Average Current and Average Power}}\par
   \includegraphics[width = 100mm]{images/CurrToPwr.png}
-  \caption{Sample figure caption.}
-  \label{fig:fig1}
+  \caption{The linear relationship between average current and average power is strong with an R-Squared value of 0.99.}
+  \label{fig:currtopwr}
 \end{figure}
 
 \begin{figure}
   \centering
+  \large{\textbf{Testing the Maximum Flight Time Regression}}\par
   \includegraphics[width = 100mm]{images/UsingPredictedPower.png}
-  \caption{Sample figure caption.}
-  \label{fig:fig1}
+  \caption{Using average power data predicted from average current to test the rational regression equation estimating maximum flight time. It preforms well with a R-Squared value of 0.91.}
+  \label{fig:usingpredictedpower}
 \end{figure}
 
 
