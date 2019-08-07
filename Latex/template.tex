@@ -16,9 +16,37 @@
 \usepackage{multirow}
 \usepackage{lipsum}
 \usepackage{graphicx}
-\usepackage{subcaption} 
+\usepackage{subcaption}
 
 
+\usepackage{listings}
+\usepackage{color}
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{frame=tb,
+	language=Python,
+  	aboveskip=3mm,
+  	belowskip=3mm,
+  	showstringspaces=false,
+  	columns=flexible,
+  	basicstyle={\small\ttfamily},
+  	numbers=none,
+  	numberstyle=\tiny\color{gray},
+  	keywordstyle=\color{blue},
+  	commentstyle=\color{dkgreen},
+  	stringstyle=\color{mauve},
+  	breaklines=true,
+ 	breakatwhitespace=true,
+ 	tabsize=3
+}
+
+
+\newcommand\thefont{\expandafter\string\the\font}
 
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
@@ -72,7 +100,7 @@ One of the many things holding UAVs back from doing such things are the simple f
   \label{fig:volt}
 \end{figure}
 
-While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field. 
+While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field.
 
 
 \section{Related Work}
@@ -105,15 +133,52 @@ The third type of data collected was data from a grounded drone with its propell
 
 
 
+The process of choosing this model was done so by evaluating what was needed for this project. Seeming as though there was no need for regression, it was clear that a model that worked with classification had to be used. While this narrowed the overall amount of options to choose from, there were still quite a bit left. Originally, random forests were set to be implemented, however, they tend to be costly in terms of time, and with the data smoothing algorithm that will be evaluated later on, speed was a concern. Finally, a decision tree was settled on due to its speed, easiness to understand, and favorable accuracy results. The entire tree was based on the Gini index–the probability of whether a decision is wrong or not, therefore, generally as one traverses farther down the tree, the Gini index should become smaller. An example of the tree can be seen in Figure \ref{fig:tree} in which it shows a tree with a depth of 3. Generally speaking, finding the right depth of a tree depends entirely on the data as one does not want to over or under fit the data which will yield sub par results. \par
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{images/tree}
+	\label{fig:tree}
+	\caption{Classifier decision tree visualized. Each color represents a maneuver with orange being ascend, green hover, blue descend, and pink with horizontal movement.}
+\end{figure}
 
+After the model is finished with all of its predictions, it outputs them all into a standard array, and once a simple compression algorithm is completed (see Section \ref{sec:timeline}) the timeline resembles one similar to Figure \ref{fig:original}. This however is still not the final result as there are still instances of sporadic predictions with a time value less than 10 (1 second); this is most likely an incorrect guess. To correct this, a data smoothing algorithm is then applied (see page \ref{sec:data}) where it will evaluate each maneuver to see whether it is below the 10 time unit threshold. If it is, it will then look above and below to determine which value to change it to; the maneuver will default to the one with the highest time value. The final result is then parsed to a comma-separate values (CSV) file where it will be used in average power prediction. An example of a final timeline can be seen in Figure \ref{fig:fixed}.
 
-\subsection{Machine Learning}
-This is all the machine learning and stuff
+\begin{figure}[!htb]
+\centering
+\minipage{0.45\textwidth}
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	1&20\\
+	\hline
+	2&40\\
+	\hline
+	4&90\\
+	\hline
+	\end{tabular}
+	\label{fig:original}
+	\caption{Table1}
+\endminipage\hfill
+\minipage{0.45\textwidth}
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	1&20\\
+	\hline
+	2&40\\
+	\hline
+	4&90\\
+	\hline
+	\end{tabular}
+	\label{fig:fixed}
+	\caption{Table2}
+\endminipage\hfill
+\end{figure}
 
 
 \subsection{Power Statistics}
-To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point).\par
+To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point). \par
 
 As Figure B shows, comparing the data from a single maneuver, in this case hovering, shows that there are large differences between these tests. This was explainable by different configurations in the drone, including parameters, settings, and even different copies of the same type of drone and battery. Of the five flights, flight one, flights two and three, and flights four and five were all under the same conditions, so the flights were separated into those three groups. A weighted average of power for each group of flights was preformed, which controlled for the frequency of different maneuvers. It did this by weighting each maneuver with a weight proportional to the smaller duration of that maneuver between the two flight groups being compared. Figure C shows this process with real data. By finding the ratio of these weighted averages, a coefficient was found to scale the power data from the first two groups of flights, which put them on par with the average power of group three. The normalized data was then analyzed with a box plot split by maneuver and by finding the average power of each maneuver to use in the final model.\par
 
@@ -181,6 +246,98 @@ T={\frac {321.9p + 98770}{p + 29.3}}
 \bibliography{references}
 \bibliographystyle{ieeetr}
 
+% Place code in here
+\appendix
+\section{Appendix}
+\subsection{Timeline Creation}
+\label{sec:timeline}
+\begin{lstlisting}
+# Iteravely travels through the prediction data to create a time line for each of the maneuvers
+def maneuverTimelineHelper(prediction_data, maneuver, man_counter, timeline):
+	maneuver = prediction_data[0]
+
+	for i in range(prediction_data.size):
+		if ((prediction_data[i] != maneuver) or (i == prediction_data.size-1)):
+			if (i == prediction_data.size-1):
+				timeline = np.append(timeline, [[maneuver, man_counter+1]], axis = 0)
+			else:
+				timeline = np.append(timeline, [[maneuver, man_counter]], axis = 0)
+				maneuver = prediction_data[i]
+				man_counter = 1
+		elif (prediction_data[i] == maneuver):
+			man_counter += 1
+
+	return timeline
+
+# Calls helper method
+def maneuverTimeline(prediction_data):
+	timeline = np.empty(shape=[0, 2])
+
+	return maneuverTimelineHelper(prediction_data, 0, 0, timeline)
+\end{lstlisting}
+
+\subsection{Data Smoothing}
+\label{sec:data}
+\begin{lstlisting}
+# Smoothes the data to get rid of any extraneous values. If found, will default to the biggest next to it. If surrounding are equal, loop to the next until it finds one that isn't equal to each other
+def smoothData(timeline):
+	if (timeline.shape[0] == 1):
+		return timeline
+
+	timeline = removeRepeats(timeline)
+	re_smooth = True
+
+	while (re_smooth == True):
+		for i in range(timeline.shape[0]):
+			if (timeline[i][1] < 10.0):
+				if (i == 0 and (timeline[i+1][1] > timeline[i][1])):
+					timeline[i][0] = timeline[i+1][0]
+					continue
+				elif (i == timeline.shape[0]-1 and (timeline[i][1] < timeline[i-1][1])):
+					timeline[i][0] = timeline[i-1][0]
+					continue
+
+				above = timeline[i-1][1]
+				below = timeline[i+1][1]
+
+				if (above > below):
+					timeline[i][0] = timeline[i-1][0]
+				elif (below > above):
+					timeline[i][0] = timeline[i+1][0]
+				elif (above == below):
+					count_up = i+1
+					count_down = i-1
+					searching = True
+
+					while (searching == True):
+						if (timeline[count_up][1] == timeline[count_down][1]):
+							if (count_up+1 in range(0, timeline.shape[0])):
+								count_up += 1
+
+							if (count_down-1 in range(0, timeline.shape[0])):
+								count_down -= 1
+						else:
+							searching = False
+
+					if (timeline[count_down][1] > timeline[count_up][1]):
+						timeline[i][0] = timeline[count_down][0]
+					else:
+						timeline[i][0] = timeline[count_up][0]
+
+		timeline = removeRepeats(timeline)
+
+		for i in range(timeline.shape[0]):
+			if (timeline[i][1] < 10.0):
+				re_smooth = True
+				break
+			else:
+				re_smooth = False
+
+	return timeline
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{LaTex Examples}
 \label{sec:headings}
 
@@ -205,7 +362,7 @@ And for a URL, the documentation for \verb+natbib+ may be found at
   \url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
 \end{center}
 Of note is the command \verb+\citet+, which produces citations
-appropriate for use in inline text.  For example, 
+appropriate for use in inline text.  For example,
 \begin{verbatim}
    \citet{hasselmo} investigated\dots
 \end{verbatim}
@@ -224,7 +381,7 @@ See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of th
 See Section \ref{sec:headings}.
 See Fig \ref{fig:fig1}
 
-\begin{figure}
+\begin{figure}[!h]
   \centering
   \includegraphics[width = 100mm]{}
   \caption{Sample figure caption.}
@@ -236,7 +393,7 @@ See Fig \ref{fig:fig1}
 
 See awesome Table~\ref{tab:table}.
 
-\begin{table}
+\begin{table}[!h]
  \caption{Sample table title}
   \centering
   \begin{tabular}{lll}
@@ -253,12 +410,9 @@ See awesome Table~\ref{tab:table}.
   \label{tab:table}
 \end{table}
 
-
+\newpage
 \bibliography{references}
 \bibliographystyle{ieeetr}
 
 
 \end{document}
-
-
-
