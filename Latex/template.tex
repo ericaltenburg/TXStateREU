@@ -73,13 +73,7 @@ As previously stated, these studies come with slight caveats. For the case of th
 After collecting data from several flights, there was no similar pattern to that of their original findings, therefore, leading to the conclusion that roll left did not consume less power than roll right. Additionally, another finding in the data set showed that the differences in power consumption between all maneuvers in the horizontal plane were minute, thus allowing the classification of maneuvers to only include ascend, descend, hover, and horizontal movement. However, it is important to note that the UAV they used had four total rotors (quad-copter) while the one used primarily in this project had six rotors (hexa-copter) which could lead to a difference in results.
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f6c587e13b638a7c7d1e85f855e630bebadfe980
 \section{Methods and Procedure}
-
 One a very basic level, the model used two steps to predict pre-flight battery consumption. The first step was to determine which maneuvers a drone would fly. To do this, simulations were completed in the drone software QGroundControl and manually labeled with different maneuvers. This data was then used to train a machine learning model which could then take in a simulated projected flight path of an actual drone flight, and output a timeline of what maneuvers the drone would be doing and for how long.\par
 
 The second modeling step was to predict the power associated with each maneuver, and ultimately the maximum flying battery life of a drone for a particular flight. First, five actual drone flights were manually categorized by maneuver, and analyzed to find the average power associated with each drone action. Next a separate series of tests were done with a grounded drone, draining the battery at different rates to test how much total energy the drone used before it dropped below the critical voltage level of 12V (citation?). A rational model was then fit to this data to predict maximum flight time of a drone given an average power during a flight.\par
@@ -92,16 +86,23 @@ Three types of data were used for this model, each collected in their own separa
 
 The next type of data was the actual drone flights. The analysis relied on five different flights, taken at different times. Three of these flights had been recorded for a previous research project, but comprehensive data was available to analyze them. Two more of these flights were completed specifically for this research. One featured hovering for a minute at 20m and the other a clockwise circle at 10 m.\par
 
-The third type of data collected was data from a grounded drone with its propellers flipped upside  down to push it into the ground. With this setup, the drone would be put into manuel mode and the throttle input was adjusted to test the results of draining the battery at different rates. The drone would be allowed to run until its voltage dropped into critical levels, the same level at which it would normally go into emergency landing procedure. One some of this data, the sensors stopped recording so power data could not be obtained, but in those cases total current draw was manual reported.
-
+The third type of data collected was data from a grounded drone with its propellers flipped upside down to push it into the ground. With this setup, the drone would be put into manual mode and the throttle input was adjusted to test the results of draining the battery at different rates. The drone would be allowed to run until its voltage dropped into critical levels, the same level at which it would normally go into emergency landing procedure. One some of this data, the sensors stopped recording so power data could not be obtained, but in those cases total current draw was manual reported.
 
 
 \subsection{Machine Learning}
-This is all the machine learning and stuff
+In order to reduce the total amount of human error while evaluating maneuvers and streamline the overall process of estimating the battery consumption, machine learning proved to be a helpful tool. With the use of a classifier decision tree, the user would be capable of loading up simulation data from a desired flight plan, and the model will output a precise timeline of maneuvers the drone will perform every tenth of a second. As previously mentioned, this was a useful alternative to simply evaluating a flight pattern by eye as having the maneuvers of a drone off by a couple seconds could result in immensely different results when in practice. \par
+
+The process of choosing this model was done so by evaluating what was needed for this project. Seeming as though there was no need for regression, it was clear that a model that worked with classification had to be used. While this narrowed the overall amount of options to choose from, there were still quite a bit left. Originally, random forests were set to be implemented, however, they tend to be costly in terms of time, and with the data smoothing algorithm that will be evaluated later on, speed was a concern. Finally, a decision tree was settled on due to its speed, easiness to understand, and favorable accuracy results. The entire tree was based on the Gini index–the probability of whether a decision is wrong or not, therefore, generally as one traverses farther down the tree, the Gini index should become smaller. An example of the tree can be seen in figure XX in which it shows a tree with a depth of XX. Generally speaking, finding the right depth of a tree depends entirely on the data as one does not want to over or under fit the data which will yield sub par results. \par
+
+After the model is finished with all of its predictions, it outputs them all into a standard array, and once a simple compression algorithm is completed (see section XX) the timeline resembles one similar to figure XX. This however is still not the final result as there are still instances of sporadic predictions with a time value less than 10 (1 second). To correct this, a data smoothing algorithm is then applied (see section XX) where it will evaluate each maneuver to see whether it is below the 10 time unit threshold. If it is, it will then look above and below to determine which value to change it to; the maneuver will default to the one with the highest time value. The final result is then parsed to a comma-separate values (CSV) file where it will be used in average power prediction. An example of a final timeline can be seen in figure XX.
 
 
 \subsection{Power Statistics}
-This is all the power statistics and stuff
+To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point). \par
+
+As Figure B shows, comparing the data from a single maneuver, in this case hovering, shows that there are large differences between these tests. This was explainable by different configurations in the drone, including parameters, settings, and even different copies of the same type of drone and battery. Of the five flights, flight one, flights two and three, and flights four and five were all under the same conditions, so the flights were separated into those three groups. A weighted average of power for each group of flights was preformed, which controlled for the frequency of different maneuvers. It did this by weighting each maneuver with a weight proportional to the smaller duration of that maneuver between the two flight groups being compared. Figure C shows this process with real data. By finding the ratio of these weighted averages, a coefficient was found to scale the power data from the first two groups of flights, which put them on par with the average power of group three. The normalized data was then analyzed with a box plot split by maneuver and by finding the average power of each maneuver to use in the final model. \par
+
+To examine the maximum flight time the data from the grounded tests which drained the battery were parsed to find the total energy of each flight and the average power of each flight. For flights where the  sensors stopped recording mid-test, the total current draw was recorded and the relationship between total current and total energy was analyzed with linear regression to attempt to find a power approximation from these flights, even though the actual metric was not recorded. While processing this data it was noticed that the total energy of these flights was not constant as previous battery analysis had assumed (CITE), so further analysis was done to compare the total energy consumption of a test with its average power.
 
 
 \section{Results and Discussion}
@@ -113,16 +114,8 @@ This is all the power statistics and stuff
 \subsection{Power Statistics}
 
 
-\begin{equation}
-\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
-\end{equation}
-
-
 \section{Conclusion}
 
-
-\bibliography{references}
-\bibliographystyle{ieeetr}
 
 \section{LaTex Examples}
 \label{sec:headings}
