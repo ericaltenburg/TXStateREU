@@ -16,9 +16,37 @@
 \usepackage{multirow}
 \usepackage{lipsum}
 \usepackage{graphicx}
-\usepackage{subcaption} 
+\usepackage{subcaption}
 
 
+\usepackage{listings}
+\usepackage{color}
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{frame=tb,
+	language=Python,
+  	aboveskip=3mm,
+  	belowskip=3mm,
+  	showstringspaces=false,
+  	columns=flexible,
+  	basicstyle={\small\ttfamily},
+  	numbers=none,
+  	numberstyle=\tiny\color{gray},
+  	keywordstyle=\color{blue},
+  	commentstyle=\color{dkgreen},
+  	stringstyle=\color{mauve},
+  	breaklines=true,
+ 	breakatwhitespace=true,
+ 	tabsize=3
+}
+
+
+\newcommand\thefont{\expandafter\string\the\font}
 
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
@@ -60,20 +88,19 @@
 \keywords{Unmanned Aerial Vehicle \and UAV \and Drone \and Battery \and Battery Consumption \and Battery Usage \and Predict}
 
 
-\section{Introduction}[A]
+\section{Introduction}
 In recent years, unmanned aerial vehicle (UAV) have become increasingly popular in non-military contexts. As their technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a location along a route. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. As drones become more effective at delivering packages, they can replace trucks on short, relatively light deliveries, which will reduce the total amount of carbon dioxide emissions and have a positive impact on the environment \cite{Goodchild}. This technology is not limited to the aforementioned companies, instead, it is also used by archaeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Police forces also have begun to use these UAVs in situations where it is not entirely safe to send in an officer. By allowing that officer to remotely control a drone, it allows him and many others to be safe.\par
 
 One of the many things holding UAVs back from doing such things are the simple fact that the Lithium Polymer (LiPo) battery usage is not easily predictable. On a basic level, the reason this battery consumption is difficult to predict is that LiPo batteries do not consume voltage linearly. Its voltage curve starts off fairy steep, but quickly levels out for the majority of its capacity before dropping off quickly when it reaches low energy levels (See Fig \ref{fig:volt}). If these non-linear nature of a battery could be properly quantified though, users could have the ability to accurately predict how much battery a given drone flight will consume which would allow them to determine whether or not certain flight missions were feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
 
 \begin{figure}
   \centering
-  \large{\textbf{LiPo Battery Voltage Curve}}\par
   \includegraphics[width = 100mm]{images/voltage.png}
   \caption{The voltage curve of a standard LiPo battery.}
   \label{fig:volt}
 \end{figure}
 
-While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field. 
+While there have been some attempts at creating such a model, there has not been a successful method that results in an accurate or efficient prediction. This is partially due to drones being relatively new, having only been introduced in the past few years, and as a result, not much research has been conducted. It is from this lack of literature that many have had difficulty creating a functional model. Specifically, one of the assumptions made about these drones is that the total battery energy consumption is constant from flight-to-flight \cite{Prasetia}, however, through various data samples, this is not the case; it is variable. This and many other assumptions make up some of the shortcomings in existing literature, that if not proven correctly, can result in a considerable setback in the UAV field.
 
 
 \section{Related Work}
@@ -106,42 +133,54 @@ The third type of data collected was data from a grounded drone with its propell
 
 
 
+The process of choosing this model was done so by evaluating what was needed for this project. Seeming as though there was no need for regression, it was clear that a model that worked with classification had to be used. While this narrowed the overall amount of options to choose from, there were still quite a bit left. Originally, random forests were set to be implemented, however, they tend to be costly in terms of time, and with the data smoothing algorithm that will be evaluated later on, speed was a concern. Finally, a decision tree was settled on due to its speed, easiness to understand, and favorable accuracy results. The entire tree was based on the Gini index–the probability of whether a decision is wrong or not, therefore, generally as one traverses farther down the tree, the Gini index should become smaller. An example of the tree can be seen in Figure \ref{fig:tree} in which it shows a tree with a depth of 3. Generally speaking, finding the right depth of a tree depends entirely on the data as one does not want to over or under fit the data which will yield sub par results. \par
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{images/tree}
+	\label{fig:tree}
+	\caption{Classifier decision tree visualized. Each color represents a maneuver with orange being ascend, green hover, blue descend, and pink with horizontal movement.}
+\end{figure}
 
+After the model is finished with all of its predictions, it outputs them all into a standard array, and once a simple compression algorithm is completed (see Section \ref{sec:timeline}) the timeline resembles one similar to Figure \ref{fig:original}. This however is still not the final result as there are still instances of sporadic predictions with a time value less than 10 (1 second); this is most likely an incorrect guess. To correct this, a data smoothing algorithm is then applied (see page \ref{sec:data}) where it will evaluate each maneuver to see whether it is below the 10 time unit threshold. If it is, it will then look above and below to determine which value to change it to; the maneuver will default to the one with the highest time value. The final result is then parsed to a comma-separate values (CSV) file where it will be used in average power prediction. An example of a final timeline can be seen in Figure \ref{fig:fixed}.
 
-\subsection{Machine Learning}
-This is all the machine learning and stuff
+\begin{figure}[!htb]
+\centering
+\minipage{0.45\textwidth}
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	1&20\\
+	\hline
+	2&40\\
+	\hline
+	4&90\\
+	\hline
+	\end{tabular}
+	\label{fig:original}
+	\caption{Table1}
+\endminipage\hfill
+\minipage{0.45\textwidth}
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	1&20\\
+	\hline
+	2&40\\
+	\hline
+	4&90\\
+	\hline
+	\end{tabular}
+	\label{fig:fixed}
+	\caption{Table2}
+\endminipage\hfill
+\end{figure}
 
 
 \subsection{Power Statistics}
-To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point).\par
+To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point). \par
 
-\begin{figure}
-  \centering
-  \large{\textbf{Hover Power by Run}}\par
-  \includegraphics[width = 100mm]{images/HoverPlain.png}
-  \caption{Comparing the distribution of hovering between three groups of flights.}
-  \label{fig:hover}
-\end{figure}
-
-As Figure \ref{fig:hover} shows, comparing the data from a single maneuver, in this case hovering, shows that there are large differences between these tests. This was explainable by different configurations in the drone, including parameters, settings, and even different copies of the same type of drone and battery. Of the five flights, flight one, flights two and three, and flights four and five were all under the same conditions, so the flights were separated into those three groups. A weighted average of power for each group of flights was preformed, which controlled for the frequency of different maneuvers. It did this by weighting each maneuver with a weight proportional to the smaller duration of that maneuver between the two flight groups being compared. Figure  \ref{fig:Norm} shows this process with real data. By finding the ratio of these weighted averages, a coefficient was found to scale the power data from the first two groups of flights, which put them on par with the average power of group three. The normalized data was then analyzed with a box plot split by maneuver and by finding the average power of each maneuver to use in the final model.\par
-
-\begin{figure}
-\centering
-\large{\textbf{Normalizing Power Data}}\par
-\begin{subfigure}[b]{0.5\textwidth}
-  \centering
-   \includegraphics[width=70mm]{images/Normalizing1.png}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}[b]{0.5\textwidth}
-  \centering
-  \includegraphics[width=70mm]{images/Normalizing2.png}
-  \label{fig:sub2}
-\end{subfigure}
-\caption{A demonstration of the weighted average computation to normalize the power data for run 1 (left) and runs 2 and 3 (right).}
-\label{fig:Norm}
-\end{figure}
+As Figure B shows, comparing the data from a single maneuver, in this case hovering, shows that there are large differences between these tests. This was explainable by different configurations in the drone, including parameters, settings, and even different copies of the same type of drone and battery. Of the five flights, flight one, flights two and three, and flights four and five were all under the same conditions, so the flights were separated into those three groups. A weighted average of power for each group of flights was preformed, which controlled for the frequency of different maneuvers. It did this by weighting each maneuver with a weight proportional to the smaller duration of that maneuver between the two flight groups being compared. Figure C shows this process with real data. By finding the ratio of these weighted averages, a coefficient was found to scale the power data from the first two groups of flights, which put them on par with the average power of group three. The normalized data was then analyzed with a box plot split by maneuver and by finding the average power of each maneuver to use in the final model.\par
 
 To examine the maximum flight time the data from the grounded tests which drained the battery were parsed to find the total energy of each flight and the average power of each flight. For flights where the  sensors stopped recording mid-test, the total current draw was recorded and the relationship between total current and total energy was analyzed with linear regression to attempt to find a power approximation from these flights, even though the actual metric was not recorded. While processing this data it was noticed that the total energy of these flights was not constant as previous battery analysis had assumed \cite{Prasetia}, so further analysis was done to compare the total energy consumption of a test with its average power.
 
@@ -152,38 +191,18 @@ To examine the maximum flight time the data from the grounded tests which draine
 \subsection{Machine Learning}
 \subsection{Power Statistics}
 
-
-
-\begin{figure}
+\begin{figure}[!h]
   \centering
-  \large{\textbf{Adjusted Maneuver Power Distribution}}\par
   \includegraphics[width = 100mm]{images/powerfinal.png}
   \caption{Sample figure caption.}
-  \label{fig:powerfinal}
+  \label{fig:fig1}
 \end{figure}
-
-
-\begin{table}
-  \centering
-  \large{\textbf{Average Maneuver Power (W)}}\par\medskip
-  \begin{tabular}{cccc}
-    \toprule
-    \cmidrule(r){1-2}
-    Ascend     & Descend     & Hover & Horizontal \\
-    \midrule
-    365.2 & 326.8  & 341.4 & 341.5    \\
-    \bottomrule
-  \end{tabular} \bigskip
-  \caption{Average power for each of the four maneuvers.}
-  \label{tab:table}
-\end{table}
 
 \begin{figure}
   \centering
-  \large{\textbf{Predicting Maximum Flight Time from Average Power}}\par
   \includegraphics[width = 100mm]{images/FlightTime.png}
-  \caption{A rational regression equation used to predict the maximum flight time from average power.}
-  \label{fig:flighttime}
+  \caption{Sample figure caption.}
+  \label{fig:fig1}
 \end{figure}
 
 \begin{equation}
@@ -192,33 +211,32 @@ T={\frac {321.9p + 98770}{p + 29.3}}
 
 \begin{figure}
 \centering
-\large{\textbf{Relationship between Average Power and Total Energy}}\par
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
    \includegraphics[width=90mm]{images/AvgTotPwr.png}
+  \label{fig:sub1}
 \end{subfigure}%
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
   \includegraphics[width=90mm]{images/AvgTotPwr2.png}
+  \label{fig:sub2}
 \end{subfigure}
-\caption{Finding the linear regression relationship between average power and total energy.}
-\label{fig:avgtotpwr}
+\caption{A figure with two subfigures}
+\label{fig:test}
 \end{figure}
 
 \begin{figure}
   \centering
-  \large{\textbf{Relationship between Average Current and Average Power}}\par
   \includegraphics[width = 100mm]{images/CurrToPwr.png}
-  \caption{The linear relationship between average current and average power is strong with an R-Squared value of 0.99.}
-  \label{fig:currtopwr}
+  \caption{Sample figure caption.}
+  \label{fig:fig1}
 \end{figure}
 
 \begin{figure}
   \centering
-  \large{\textbf{Testing the Maximum Flight Time Regression}}\par
   \includegraphics[width = 100mm]{images/UsingPredictedPower.png}
-  \caption{Using average power data predicted from average current to test the rational regression equation estimating maximum flight time. It preforms well with a R-Squared value of 0.91.}
-  \label{fig:usingpredictedpower}
+  \caption{Sample figure caption.}
+  \label{fig:fig1}
 \end{figure}
 
 
@@ -228,24 +246,173 @@ T={\frac {321.9p + 98770}{p + 29.3}}
 \bibliography{references}
 \bibliographystyle{ieeetr}
 
+% Place code in here
+\appendix
+\section{Appendix}
+\subsection{Timeline Creation}
+\label{sec:timeline}
+\begin{lstlisting}
+# Iteravely travels through the prediction data to create a time line for each of the maneuvers
+def maneuverTimelineHelper(prediction_data, maneuver, man_counter, timeline):
+	maneuver = prediction_data[0]
+
+	for i in range(prediction_data.size):
+		if ((prediction_data[i] != maneuver) or (i == prediction_data.size-1)):
+			if (i == prediction_data.size-1):
+				timeline = np.append(timeline, [[maneuver, man_counter+1]], axis = 0)
+			else:
+				timeline = np.append(timeline, [[maneuver, man_counter]], axis = 0)
+				maneuver = prediction_data[i]
+				man_counter = 1
+		elif (prediction_data[i] == maneuver):
+			man_counter += 1
+
+	return timeline
+
+# Calls helper method
+def maneuverTimeline(prediction_data):
+	timeline = np.empty(shape=[0, 2])
+
+	return maneuverTimelineHelper(prediction_data, 0, 0, timeline)
+\end{lstlisting}
+
+\subsection{Data Smoothing}
+\label{sec:data}
+\begin{lstlisting}
+# Smoothes the data to get rid of any extraneous values. If found, will default to the biggest next to it. If surrounding are equal, loop to the next until it finds one that isn't equal to each other
+def smoothData(timeline):
+	if (timeline.shape[0] == 1):
+		return timeline
+
+	timeline = removeRepeats(timeline)
+	re_smooth = True
+
+	while (re_smooth == True):
+		for i in range(timeline.shape[0]):
+			if (timeline[i][1] < 10.0):
+				if (i == 0 and (timeline[i+1][1] > timeline[i][1])):
+					timeline[i][0] = timeline[i+1][0]
+					continue
+				elif (i == timeline.shape[0]-1 and (timeline[i][1] < timeline[i-1][1])):
+					timeline[i][0] = timeline[i-1][0]
+					continue
+
+				above = timeline[i-1][1]
+				below = timeline[i+1][1]
+
+				if (above > below):
+					timeline[i][0] = timeline[i-1][0]
+				elif (below > above):
+					timeline[i][0] = timeline[i+1][0]
+				elif (above == below):
+					count_up = i+1
+					count_down = i-1
+					searching = True
+
+					while (searching == True):
+						if (timeline[count_up][1] == timeline[count_down][1]):
+							if (count_up+1 in range(0, timeline.shape[0])):
+								count_up += 1
+
+							if (count_down-1 in range(0, timeline.shape[0])):
+								count_down -= 1
+						else:
+							searching = False
+
+					if (timeline[count_down][1] > timeline[count_up][1]):
+						timeline[i][0] = timeline[count_down][0]
+					else:
+						timeline[i][0] = timeline[count_up][0]
+
+		timeline = removeRepeats(timeline)
+
+		for i in range(timeline.shape[0]):
+			if (timeline[i][1] < 10.0):
+				re_smooth = True
+				break
+			else:
+				re_smooth = False
+
+	return timeline
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{LaTex Examples}
 \label{sec:headings}
 
+\subsection{Previous Research}
+Previous research \par
+Equation Example: \newline
+
+\begin{equation}
+\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
+\end{equation}
 
 
+\paragraph{Paragraph}
+The Mentioned paragraph continues onto muliple lines it is a paragraph after all. What else do I write? I don't know
 
 
+\label{sec:others}
+When you have a paragraph you can also cite it. \cite{Prasetia} and see \cite{Chen} and see \cite{Corral}.
+
+And for a URL, the documentation for \verb+natbib+ may be found at
+\begin{center}
+  \url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
+\end{center}
+Of note is the command \verb+\citet+, which produces citations
+appropriate for use in inline text.  For example,
+\begin{verbatim}
+   \citet{hasselmo} investigated\dots
+\end{verbatim}
+produces
+\begin{quote}
+  Hasselmo, et al.\ (1995) investigated\dots
+\end{quote}
+
+\begin{center}
+  \url{https://www.ctan.org/pkg/booktabs}
+\end{center}
 
 
+\subsection{Figures}
+See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of the first footnote.}
+See Section \ref{sec:headings}.
+See Fig \ref{fig:fig1}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width = 100mm]{}
+  \caption{Sample figure caption.}
+  \label{fig:fig1}
+\end{figure}
 
 
+\subsection{Tables}
 
+See awesome Table~\ref{tab:table}.
 
+\begin{table}[!h]
+ \caption{Sample table title}
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    \multicolumn{2}{c}{Part}                   \\
+    \cmidrule(r){1-2}
+    Name     & Description     & Size ($\mu$m) \\
+    \midrule
+    Dendrite & Input terminal  & $\sim$100     \\
+    Axon     & Output terminal & $\sim$10      \\
+    Soma     & Cell body       & up to $10^6$  \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:table}
+\end{table}
+
+\newpage
 \bibliography{references}
 \bibliographystyle{ieeetr}
 
 
 \end{document}
-
-
-
