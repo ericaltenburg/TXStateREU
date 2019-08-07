@@ -1,0 +1,143 @@
+README:
+
+The MATLAB code all works together to do three separate tasks: Analyze the power of different maneuvers, Test the battery for how 
+average power relates to other variables such as total energy and flight time, and Prepare simulation data to train the model with.
+The README will be broken up correspondingly to explain each section.
+
+*******Power of Maneuvers**********
+
+>>>> readOldLog(num: String, startTime: Double, endTime: Double, AperV: Double)
+
+Takes in a string num representing flight number, flight start time and end time as doubles (found in runTimes.txt), 
+and the AperV (37 divided by the amps per volt of the flight).
+Runs through the log and pulls out relevant data to the battery including voltage, current, power, and time.
+
+Saves MAT file in runData folder with the following variables: 
+tstart, tend, dmode, dimu, dbaro, datt, dcurr, dctun, dntun, dgps
+*This code was originally written by a previous grad student and has since been edited to fit the purposes.
+
+>>>> readNewCSV(num: String, startTime: Double, endTime: Double, AperV: Double)
+
+Takes in a string num representing flight number, flight start time and end time as doubles, 
+and the AperV (37 divided by the amps per volt of the flight).
+Runs through the log and pulls out relevant data to the battery including voltage, current, power, and time. 
+
+Saves MAT file in runData folder with the following variables:  
+tstart, tend, t, volt, fvolt, curr, fcurr, pwr, fpwr, cumPwr, cumCurr, FinalPower, FinalCurr
+
+
+>>>> movingMeanOld(name: String)
+
+Takes in a string name representing the flight name (Number 1-3) to run the moving mean command on.
+Simplifies the data to occur on one second intervals with a starting voltage, ending voltage and power
+
+Saves MAT file in runData folder with the following variables: S, E, P);
+
+
+>>>> movingMeanNew(name: String)
+
+Takes in a string name representing the flight name (Number 4-5) to run the moving mean command on.
+Simplifies the data to occur on one second intervals with a starting voltage, ending voltage and power
+
+Saves MAT file in runData folder with the following variables: S, E, P);
+
+
+>>>> labelAllData(n: Int)
+
+Takes in an integer n representing the number of seconds to find the moving mean of to smooth the data. 
+The function combines all the data from the different flights, running the moving mean function on the power and
+and categorizing each piece of data into a specific maneuver. It then runs the normalizing function on the result 
+to come up with two data sets, one plain and one Nomalized
+
+Saves MAT file in current directory named AllData.mat with the following variables: New, Ascend, Hover, Descend, Straight);
+Saves MAT file in current directory named AllDataNormalizied.mat with the following variables: 
+NewNorm, AscendNorm, HoverNorm, DescendNorm, StraightNorm
+
+
+>>>> powerBoxPlot(Normalize: boolean)
+
+Takes in a Normalize as a boolean representing whether or not to normalize the data 
+Creates a box plot showing the variation in power of each maneuver. 
+The data is either plain (if Normalize is false) or Normalized (if Normalize is true).
+
+Saves MAT file in current directory named either avgPowers.mat or avgPowersNormalized.mat with the either averages 
+or averagesNorm depending on Normalize variable
+* These averages represent the average power consumption of Ascending, Descending, Hovering, and Horizontal Movement 
+(in that order, normalized or plain)
+
+
+>>>> Adjusted = normalizePower(data: [])
+*A Helper Function*
+Takes in data representing a matrix of flight data containing the flight number (row 3) and power (row 6)
+Returns data with the power column multiplied by a coefficient determined in the Normalize_Power.xlsx
+
+
+>>>> allFunctionsMan
+
+Runs through all of the above functions sequentially
+
+
+
+*******Battery Analysis**********
+
+>>>> readBatCSV(name, AperV)
+
+Takes in a string name representing the test name/number and a double AperV for the Amps per Volt of the test (found in CSVinfo.txt)
+Runs through the relevant battery data. Th total Power(Energy) and total Amp values are manually recorded
+
+Saves MAT file in pwrData folder with the following variables: 
+tstart, tend, t, volt, fvolt, curr, fcurr, pwr, fpwr, cumPwr, cumCurr, FinalPower, FinalCurr
+
+
+>>>> battey1Tests()
+
+Uses manually inputted battery power, time and current data to run a bunch of tests and print graphs.
+The tests are: 
+Average Power vs Flight Time (fit with a rational function)
+Average Power vs Average Current (fit with a linear function)
+Average Power vs Total Power(Energy) (fit with a linear function)
+Average current vs Flight Time (fit with a rational function)
+Average current vs Flight Time (fit with a rational function) (Including Data where Power is unavaliable)
+
+Saves MAT file in current directory named battery1Data.mat with the following variables:  
+totAmp1, Sec1, totPwr1, AvgCurr1, AvgPwr1, AlltotAmp1, AllSec1, AllAvgCurr1
+
+
+>>>> battey2Tests()
+
+Uses manually inputted battery power, time and current data to run a bunch of tests and print graphs.
+The tests are: 
+Average Power vs Total Power(Energy) (fit with a linear function)
+
+Saves MAT file in current directory named battery2Data.mat with the following variables: 
+totAmp2, Sec2, totPwr2, AvgCurr2, AvgPwr2
+
+
+>>>> PwrToCurrRegress(), PowerLinear1(), PowerLinear2(), BPwrRegress(), BCurrRegress()
+
+Automatically generated code that creates graphs with different regression lines
+
+
+>>>> allFunctionsBat
+
+Runs through all of the above functions sequentially
+
+*******Prepare Simulation Data**********
+
+>>>> generalRead(name: String)
+
+Takes in a string name representing the name of the simulation test.
+Runs throught the data and pulls out the raw relevant data saving it to a MAT file in the logs directory.
+*This code was originally written by a previous grad student and has since been edited to fit the purposes.
+
+
+>>>> generalTrainingEmpty
+
+Must mually fill in the log name, and all the start and end times for the maneuvers in the simulation.
+Formats the data from the simulations for the machine learning model and saves it to a CSV
+
+
+
+********Figures*******
+
+Point in time graphs of findings with varying degrees of presentability

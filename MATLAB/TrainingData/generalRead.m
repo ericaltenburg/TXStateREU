@@ -1,11 +1,13 @@
+% **
+% Author:		John Graves (Adaped from a previous students work)
+% Date: 		6 August 2019
+% Description:	Parses data from simulation tests 
+% **
 
+function generalRead(name)
+%name: String - representing simulation test name
 
-% binlog = 'logs/5.log';
-% tstart = 200; % start time
-% tend = 1250;  % end time
-binlog = 'logs/Test.log';
-tstart = 286; % start time
-tend = 490;  % end time
+binlog = ['logs/',name,'.log'];
 
 fp = fopen(binlog,'r');
 
@@ -17,6 +19,8 @@ dctun = [];
 dntun = [];
 dgps = [];
 
+
+% Iterating through all the data to pull out relevant data
 count  = 0;
 while true
     l = fgetl(fp);
@@ -47,7 +51,12 @@ while true
         despitch = str2num(d{5});
         pitch = str2num(d{6});
         desyaw = str2num(d{7});
-        yaw = str2num(d{8});
+        yaw = strtstart = ceil[length(dmode), length(dimu), length(dbaro), length(datt), length(dctun), length(dntun), length(dgps)]
+stimu = dimu(2:end,1) - dimu(1:end-1,1);
+stbaro = dbaro(2:end,1) - dbaro(1:end-1,1);
+stctun = dctun(2:end,1) - dctun(1:end-1,1);
+[median(stimu), median(stbaro), median(stctun)](data(1,1));
+tend = floor(data(end,1));2num(d{8});
         datt = [datt; [tatt, desroll, roll, despitch, pitch, desyaw, yaw]];
     elseif strcmp(d{1},'MODE')
 % FMT,169,14,MODE,QMBB,TimeUS,Mode,ModeNum,Rsn
@@ -86,11 +95,14 @@ end;
 
 fclose(fp);
 
-[length(dmode), length(dimu), length(dbaro), length(datt), length(dctun), length(dntun), length(dgps)]
-stimu = dimu(2:end,1) - dimu(1:end-1,1);
-stbaro = dbaro(2:end,1) - dbaro(1:end-1,1);
-stctun = dctun(2:end,1) - dctun(1:end-1,1);
-[median(stimu), median(stbaro), median(stctun)]
 
-save([binlog,'.mat'], 'tstart', 'tend', 'dmode', 'dimu', 'dbaro', 'datt', 'dctun', 'dntun', 'dgps');
+
+%Assigning start and end times for the test
+tstart = ceil(dmode(1,1));
+tend = floor(dmode(end,1));
+
+%Save the data to a MAT file
+save(['Data/',name,'.mat'], 'tstart', 'tend', 'dmode', 'dimu', 'dbaro', 'datt', 'dctun', 'dntun', 'dgps');
+
+end
 
