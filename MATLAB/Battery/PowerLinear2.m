@@ -36,7 +36,7 @@ ft = fittype( 'poly1' );
 % Plot fit with data.
 figure( 'Name', 'untitled fit 2' );
 h = plot( fitresult{2}, xData, yData );
-legend( h, 'Average Power vs. Total Power', 'R-Square: 0.885', 'Location', 'NorthEast', 'Interpreter', 'none' );
+legend( h, 'Average Power vs. Total Power', ['f(x) = p1*x + p2',newline,'       p1 =     429.3',newline,'       p2 =    73390',newline,'R-Squared: 0.8848'], 'Location', 'NorthEast', 'Interpreter', 'none' );
 % Label axes
 xlabel( 'Average Power (W)', 'Interpreter', 'none' );
 ylabel( 'Total Power (J)', 'Interpreter', 'none' );
