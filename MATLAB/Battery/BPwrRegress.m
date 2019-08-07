@@ -29,7 +29,7 @@ opts.StartPoint = [0.0539501186666071 0.530797553008973 0.7792];
 % Plot fit with data.
 figure( 'Name', 'untitled fit 1' );
 h = plot( fitresult, xData, yData );
-legend( h, 'Flight Time vs. Average Power','R-Square: 0.95', 'Location', 'NorthEast', 'Interpreter', 'none' );
+legend( h, 'Flight Time vs. Average Power',['f(x) = (p1*x + p2) / (x + q1)',newline,'       p1 =       321.9',newline,'       p2 =        98770',newline,'       q1 =       29.3',newline,'R-Square; 0.953'], 'Location', 'NorthEast', 'Interpreter', 'none' );
 % Label axes
 xlabel( 'Avgerage Power (W)', 'Interpreter', 'none' );
 ylabel( 'Flight Time (Sec)', 'Interpreter', 'none' );
