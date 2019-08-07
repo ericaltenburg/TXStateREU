@@ -7,7 +7,10 @@
 function battery1Tests
 
 % total Amps in battery 1 Tests
-totAmp1 = [4235 %3850
+totAmp1 = [ 
+    %3850 is the original number, but adjusted as shown with normalizing in the maneuver analysis. 
+    %This first data point is actually flight 1 from the other data
+    4235
     2730
     2590
     1820
@@ -25,7 +28,11 @@ Sec1 = [600
     1595];
 
 % total Power(Energy) in battery 1 Tests
-totPwr1 = [210399 %191272
+totPwr1 = [ 
+    %191272 is the original number, but adjusted as shown with normalizing in the maneuver analysis. 
+    %This first data point is actually flight 1 from the other data
+    210399
+    4235
     131860
     124770
     90695
@@ -34,7 +41,7 @@ totPwr1 = [210399 %191272
     59149];
 
 % total Amps in battery 1 Tests including tests where power wasn't recorded (Some overlap with power data)
-AlltotAmp1 = [4270
+AlltotAmp1 = [4235
     2730
     2500
     2590

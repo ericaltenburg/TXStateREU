@@ -1,3 +1,4 @@
+
 \documentclass{article}
 
 
@@ -16,7 +17,6 @@
 \usepackage{lipsum}
 
 
-/new
 
 
 \title{Pre-flight Battery Consumption Model for UAV Missions}
@@ -59,7 +59,7 @@
 
 
 \section{Introduction}
-As unmanned aerial vehicle (UAV) technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a route location. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. Aside from being able to easily deliver packages, it is possible that by replacing delivery trucks all together, the total amount of emissions could be reduced which would have an overall positive impact on the environment. This technology is not limited to the aforementioned companies, instead, it is also used by archeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Another use these UAVs have are with the police force as there are often situations where it is not entirely safe to send in an officer, however, by allowing that officer to remotely control a drone, it allows him and many others to be safe.\par
+In recent years, unmanned aerial vehicle (UAV) have become increasingly popular in non-military contexts. As their technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a location along a route. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. As drones become more effective at delivering packages, they can replace trucks on short, relatively light deliveries, which will reduce the total amount of carbon dioxide emissions and have a positive impact on the environment \cite{Goodchild}. This technology is not limited to the aforementioned companies, instead, it is also used by archeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Police forces also have begun to use these UAVs in situations where it is not entirely safe to send in an officer. By allowing that officer to remotely control a drone, it allows him and many others to be safe.\par
 
 One of the many things holding UAVs back from doing such things are the simple fact that the battery usage is not easily predictable. By having the ability to know how much battery a given drone will consume can put the user at a much higher advantage as they can now determine whether or not a certain flight mission is feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
 
@@ -67,9 +67,9 @@ While there have been some attempts at creating such a model, there has not been
 
 
 \section{Related Work}
-With very few pieces of literature in the field of UAV battery consumption, there were a select few that stood out. Previous attempts at creating a similar model have attempted to separate the maneuvers a UAV performs during its flight into separate categories such as vertical hover, and horizontal movements \cite{Prasetia}. While others took a more detailed approach and had back, down, forward, roll left, roll right, up, yaw left, and yaw right \cite{Corral}. Although these two studies were not entirely successful, they were still able to provide motivation to isolate the maneuvers into ascending, descending, hovering, and any horizontal movement.\par
+With very few pieces of literature in the field of UAV battery consumption, there were a select few that stood out. Previous attempts at creating a similar model have attempted to separate the maneuvers a UAV performs during its flight into separate categories such as vertical, hover, and horizontal movements \cite{Prasetia}. Others took a more detailed approach and had back, down, forward, roll left, roll right, up, yaw left, and yaw right \cite{Corral}. Although these two studies were not entirely successful, they were still able to provide motivation to isolate the maneuvers into ascending, descending, hovering, and any horizontal movement.\par
 
-As previously stated, these studies come with slight caveats. For the case of the detailed maneuver model, the data they collected on their quad-copter showed surprising results as shown in Figure 1. Here, they were able to map the current in Amps being drawn by each maneuver and deduced that down and roll left consumed little to no battery; up consumed the most; back, forward, roll right, yaw left, and yaw right consumed an amount in between the others. There are some aspects of this finding that raised concern, for example, roll left consumed a minuscule amount of current whereas roll right consumed much more. This puts roll left on the same level as moving down which should not happen. \par
+As previously stated, these studies come with slight caveats. For the case of the detailed maneuver model, the data they collected on their quad-copter showed surprising results as shown in Figure 1. Here, they were able to map the current in Amps being drawn by each maneuver and deduced that down and roll left consumed little to no battery; up consumed the most; back, forward, roll right, yaw left, and yaw right consumed an amount in between the others. There are some aspects of this finding that raised concern, for example, roll left consumed a minuscule amount of current whereas roll right consumed much more. This puts roll left on the same level as moving down which seemed questionable. \par
 
 
 \subsection{Improvements}
@@ -79,15 +79,16 @@ After collecting data from several flights, there was no similar pattern to that
 \section{Methodology}
 fjdklajfdk
 
-
-\section{Data Collection}
-jfkladjflas
-
-
 \section{Methods and Procedure}
 intro stuff just talking, blah blah blah\par
 
 Maybe put the methodology stuff in here
+
+\subsection{Data Collection}
+jfkladjflas
+
+
+
 
 
 \subsection{Machine Learning}
@@ -98,11 +99,21 @@ This is all the machine learning and stuff
 This is all the power statistics and stuff
 
 
-\section{Results}
-\label{sec:headings}
+\section{Results and Discussion}
 
-Background Info \par
-See Section \ref{sec:headings}.
+\subsection{Machine Learning}
+\subsection{Power Statistics}
+\begin{equation}
+\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
+\end{equation}
+
+\section{Conclusion}
+
+\bibliography{references}
+\bibliographystyle{ieeetr}
+
+\section{LaTex Examples}
+\label{sec:headings}
 
 \subsection{Previous Research}
 Previous research \par
@@ -116,7 +127,7 @@ Equation Example: \newline
 \paragraph{Paragraph}
 The Mentioned paragraph continues onto muliple lines it is a paragraph after all. What else do I write? I don't know
 
-\section{Methods}
+
 \label{sec:others}
 When you have a paragraph you can also cite it. \cite{Prasetia} and see \cite{Chen} and see \cite{Corral}.
 
@@ -140,9 +151,8 @@ produces
 
 
 \subsection{Figures}
-\lipsum[10] 
 See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of the first footnote.}
-\lipsum[11] 
+See Section \ref{sec:headings}.
 
 \begin{figure}
   \centering
@@ -153,7 +163,7 @@ See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of th
 
 
 \subsection{Tables}
-\lipsum[12]
+
 See awesome Table~\ref{tab:table}.
 
 \begin{table}
@@ -173,18 +183,12 @@ See awesome Table~\ref{tab:table}.
   \label{tab:table}
 \end{table}
 
-\subsection{Lists}
-\begin{itemize}
-\item Lorem ipsum dolor sit amet
-\item consectetur adipiscing elit. 
-\item Aliquam dignissim blandit est, in dictum tortor gravida eget. In ac rutrum magna.
-\end{itemize}
 
 \bibliography{references}
 \bibliographystyle{ieeetr}
 
 
-%\ack{kjlfsjls}
-
-
 \end{document}
+
+
+
