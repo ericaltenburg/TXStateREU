@@ -1,4 +1,3 @@
-
 \documentclass{article}
 
 
@@ -192,7 +191,7 @@ After the model is finished with all of its predictions, it outputs them all int
 \subsection{Power Statistics}
 To examine the average power of different maneuvers, the five five drone flights were manually divided up into sections representing the four maneuvers that were used in the machine learning model, by looking at altitude and ground speed. The data was reduced to one second intervals using the pchip method in Matlab and then further smoothed by using a moving mean algorithm covering nine seconds (four on each side of the data point).\par
 
-\begin{figure}
+\begin{figure}[!h]
   \centering
   \large{\textbf{Hover Power by Run}}\par
   \includegraphics[width = 100mm]{images/HoverPlain.png}
@@ -209,7 +208,7 @@ As Figure \ref{fig:hover} shows, comparing the data from a single maneuver, in t
   \centering
    \includegraphics[width=70mm]{images/Normalizing1.png}
   \label{fig:sub1}
-\end{subfigure}
+\end{subfigure}%
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
   \includegraphics[width=70mm]{images/Normalizing2.png}
@@ -227,16 +226,10 @@ To examine the maximum flight time the data from the grounded tests which draine
 
 
 \subsection{Power Statistics}
-\begin{figure}
-  \centering
-  \large{\textbf{Adjusted Maneuver Power Distribution}}\par
-  \includegraphics[width = 100mm]{images/powerfinal.png}
-  \caption{Sample figure caption.}
-  \label{fig:powerfinal}
-\end{figure}
 
+Once the maneuver data had been normalized, and smoothed, the final results could be analyzed and average results calculated. As Table \ref{tab:man} shows, ascending used the most power for the drone, while descending used the least, and hovering and horizontal movement were in the middle with effectively the same average power. These results generally support common assumptions, since ascending and descending are going against and with gravity respectively, but it was a bit surprising that there wasn't more of a difference between hovering and horizontal movement. Figure \ref{fig:powerfinal} shows the distribution of the data median average power. The hover data has a higher median and less variation than horizontal movement, which has a lot of outliers with high powers. In general, the large amount of variance signifies that more data would be beneficial. The interquartile range of the results overlap for every pair of groups besides ascending and descending, which is another indication of how the significance level of these results is low. Understanding the variance, is extremely important on a flight by flight basis, and less so on a second by second basis, since differences between flights is relevant when accounting for variance in the total amount of flight time. Five flights is not nearly enough to test flight to flight variance, so this is one area where future work would be beneficial. Regardless, the facts that the graph of the residuals shows no trends within particular maneuvers, and that the results are explainable by scientific principles, are good indicators that the results are close to reality. 
 
-\begin{table}
+\begin{table}[!h]
   \centering
   \large{\textbf{Average Maneuver Power (W)}}\par\medskip
   \begin{tabular}{cccc}
@@ -248,10 +241,22 @@ To examine the maximum flight time the data from the grounded tests which draine
     \bottomrule
   \end{tabular} \bigskip
   \caption{Average power for each of the four maneuvers.}
-  \label{tab:table}
+  \label{tab:man}
 \end{table}
 
-\begin{figure}
+\begin{figure}[!h]
+  \centering
+  \large{\textbf{Adjusted Maneuver Power Distribution}}\par
+  \includegraphics[width = 100mm]{images/powerfinal.png}
+  \caption{Sample figure caption.}
+  \label{fig:powerfinal}
+\end{figure}
+
+The average power and flight time data demonstrated a clear non-linear trend when graphed as a scatter plot which could be modeled with a rational regression equation (Equation 1). As figure \ref{fig:flighttime} shows, the regression fit the data well, with an R-square value of 0.95. As the average power increased, flight did not last as long, which was expected, but at high powers, the fight was actually using more total energy than at lower power levels. This rational equation can work in tandem with the machine learning model and average maneuver power predictions to estimate the maximum flight time of a drone flight. Given a timeline of how long a drone will be completing each maneuver, the average power predictions can estimate the average power of an entire flight. Plugging this value into the regression equation will output an expected maximum flight time. Users can then compare that flight time to the simulation flight time to determine whether or not the flight is viable and if it is, roughly what percent of battery consumption is left (by dividing simulated flight time by maximum flight time).
+
+
+
+\begin{figure}[!h]
   \centering
   \large{\textbf{Predicting Maximum Flight Time from Average Power}}\par
   \includegraphics[width = 100mm]{images/FlightTime.png}
@@ -262,6 +267,8 @@ To examine the maximum flight time the data from the grounded tests which draine
 \begin{equation}
 T={\frac {321.9p + 98770}{p + 29.3}}
 \end{equation}
+
+Figure \ref{fig:avgtotpwr} demonstrates the trends in battery energy with two different batteries by comparing average power and total energy in a scatter plot which shows that total energy is far from constant. This was a major finding that is relevant to both drones and other fields, since LiPo batteries are common across a wide range of products including smartphones and electric cars, and it is unclear how universal is the belief that battery energy is not dependent on discharge rate. In the field of drone research, these trends in battery discharge were not accounted for in some of the most prominent analysis on drone battery consumption. Most models assumes this constant battery energy, which could lead to harmful predictions. Our model finds that battery energy, at least within the range we are considering, increases linearly with a model that fits the data very well. Battery 1's linear regression has an R-square of 0.99, and battery 2, even with just three data points, has an R-square of 0.88.
 
 \begin{figure}
 \centering
@@ -278,6 +285,9 @@ T={\frac {321.9p + 98770}{p + 29.3}}
 \label{fig:avgtotpwr}
 \end{figure}
 
+To test the regression equations, tests which had not recorded power were used but did have average and total current information. To do this, first the relationship between average current and average power was analyzed, which needed to be very strong for the analysis to work. This was expected to be the case since power is calculated by multiplying current and voltage and the voltage curve should be pretty consistent from test to test. This would mean that average current should move proportionally to average power, which is what Figure \ref{fig:currtopwr} found. A linear regression fit the data almost perfectly with an R-square value of 0.999. 
+
+
 \begin{figure}
   \centering
   \large{\textbf{Relationship between Average Current and Average Power}}\par
@@ -286,6 +296,8 @@ T={\frac {321.9p + 98770}{p + 29.3}}
   \label{fig:currtopwr}
 \end{figure}
 
+Given this strong relationship, average power was able to be predicted from the average current data available in the extra tests that were not used in the originally flight time regression equation. The predicted average power data could then be graphed against flight time, to test the original regression. Given these five new data points, Figure \ref{fig:usingpredictedpower} shows that the model continued to preform well with an R-square of 0.91. The sensor on these specific flights seemed to stop working pretty randomly, making them a perfect test group, which is positive evidence for the validity.
+
 \begin{figure}
   \centering
   \large{\textbf{Testing the Maximum Flight Time Regression}}\par
@@ -293,8 +305,6 @@ T={\frac {321.9p + 98770}{p + 29.3}}
   \caption{Using average power data predicted from average current to test the rational regression equation estimating maximum flight time. It preforms well with a R-Squared value of 0.91.}
   \label{fig:usingpredictedpower}
 \end{figure}
-
-
 
 \section{Conclusion}
 
