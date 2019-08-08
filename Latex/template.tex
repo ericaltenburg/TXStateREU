@@ -84,7 +84,7 @@ San Marcos, TX \\
 \keywords{Unmanned Aerial Vehicle \and UAV \and Drone \and Battery \and Battery Consumption \and Battery Usage \and Predict}
 
 
-\section{Introduction}[A]
+\section{Introduction}
 In recent years, unmanned aerial vehicle (UAV) have become increasingly popular in non-military contexts. As their technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a location along a route. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. As drones become more effective at delivering packages, they can replace trucks on short, relatively light deliveries, which will reduce the total amount of carbon dioxide emissions and have a positive impact on the environment \cite{Goodchild}. This technology is not limited to the aforementioned companies, instead, it is also used by archaeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Police forces also have begun to use these UAVs in situations where it is not entirely safe to send in an officer. By allowing that officer to remotely control a drone, it allows them and many others to be safe.\par
 
 One of the many things holding UAVs back from doing such things are the simple fact that the Lithium Polymer (LiPo) battery usage is not easily predictable. On a basic level, the reason this battery consumption is difficult to predict is that LiPo batteries do not consume voltage linearly. Its voltage curve starts off fairy steep, but quickly levels out for the majority of its capacity before dropping off quickly when it reaches low energy levels (See Figure \ref{fig:volt}). If these non-linear nature of a battery could be properly quantified though, users could have the ability to accurately predict how much battery a given drone flight will consume which would allow them to determine whether or not certain flight missions were feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
@@ -92,7 +92,7 @@ One of the many things holding UAVs back from doing such things are the simple f
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width = 100mm]{images/voltage.png}
-	\caption{The voltage curve of a standard LiPo battery.}
+	\caption{The voltage curve of a standard LiPo battery. This curve fits especially well with a four cell LiPo battery.}
 	\label{fig:volt}
 \end{figure}
 
@@ -107,7 +107,7 @@ As previously stated, these studies come with slight caveats. For the case of th
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.38]{images/source2graph.jpg}
-	\caption{Graph showing the difference in energy consumption between maneuvers of a quad-copter.}
+	\caption{Graph showing the difference in energy consumption between maneuvers of a quad-copter \protect\cite{Corral}}.
 	\label{fig:source2}
 \end{figure}
 
@@ -120,13 +120,13 @@ After collecting data from several flights, there was no similar pattern to that
 
 One a very basic level, the model used two steps to predict pre-flight battery consumption. The first step was to determine which maneuvers a drone would fly. To do this, simulations were completed in the drone software QGroundControl and manually labeled with different maneuvers. This data was then used to train a machine learning model which could then take in a simulated projected flight path of an actual drone flight, and output a timeline of what maneuvers the drone would be doing and for how long.\par
 
-The second modeling step was to predict the power associated with each maneuver, and ultimately the maximum flying battery life of a drone for a particular flight. First, five actual drone flights were manually categorized by maneuver, and analyzed to find the average power associated with each drone action. Next a separate series of tests were done with a grounded drone, draining the battery at different rates to test how much total energy the drone used before it dropped below the critical voltage level of 12V (citation?). A rational model was then fit to this data to predict maximum flight time of a drone given an average power during a flight.\par
+The second modeling step was to predict the power associated with each maneuver, and ultimately the maximum flying battery life of a drone for a particular flight. First, five actual drone flights were manually categorized by maneuver, and analyzed to find the average power associated with each drone action. Next a separate series of tests were done with a grounded drone, draining the battery at different rates to test how much total energy the drone used before it dropped below the critical voltage level indicating the battery was empty. A rational model was then fit to this data to predict maximum flight time of a drone given an average power during a flight.\par
 
 Putting these parts together, the maximum flight time of a drone could be predicted by estimating how long the drone would be doing different maneuvers, using these durations and average power of maneuvers to determine an average power of the entire flight, and then using that number in the regression equation to predict the total flight time.
 
 
 \subsection{Data Collection}
-Three types of data were used for this model, each collected in their own separate way. First the machine learning model used simulation data for the QGroundControl software which simulates drone flights. The way this works is that a flight path with actions along the way is planned out, just as you would normally do pre-flight, but instead of going straight to doing the real test, this software can run a simulation before hand, included fairly detailed data about the position, rotation, acceleration, and speed of the drone. To train the machine learning model, ten tests were run in this simulation software, including a wide variety of paths and hovering at different altitudes. These paths included, squares, triangles, figure eights, simple straight paths, or just hovering in one spot the entire time. \par
+Three types of data were used for this model, each collected in their own separate way. First the machine learning model used simulation data for the QGroundControl software\footnote{http://qgroundcontrol.com/} which simulates drone flights. The way this works is that a flight path with actions along the way is planned out, just as you would normally do pre-flight, but instead of going straight to doing the real test, this software can run a simulation before hand, included fairly detailed data about the position, rotation, acceleration, and speed of the drone. To train the machine learning model, ten tests were run in this simulation software, including a wide variety of paths and hovering at different altitudes. These paths included, squares, triangles, figure eights, simple straight paths, or just hovering in one spot the entire time. \par
 
 The next type of data was the actual drone flights. The analysis relied on five different flights, taken at different times. Three of these flights had been recorded for a previous research project, but comprehensive data was available to analyze them. Two more of these flights were completed specifically for this research. One featured hovering for a minute at 20m and the other a clockwise circle at 10 m.\par
 
@@ -134,7 +134,7 @@ The third type of data collected was data from a grounded drone with its propell
 
 
 \subsection{Machine Learning}
-In order to reduce the total amount of human error while evaluating maneuvers and streamline the overall process of estimating the battery consumption, machine learning proved to be a helpful tool. With the use of a classifier decision tree, the user would be capable of loading up simulation data from a desired flight plan, and the model will output a precise timeline of maneuvers the drone will perform every tenth of a second. As previously mentioned, this was a useful alternative to simply evaluating a flight pattern by eye as having the maneuvers of a drone off by a couple seconds could result in immensely different results when in practice. 
+In order to reduce the total amount of human error while evaluating maneuvers and streamline the overall process of estimating the battery consumption, machine learning proved to be a helpful tool. With the use of a classifier decision tree, the user would be capable of loading up simulation data\footnote{http://ardupilot.org/dev/docs/sitl-simulator-software-in-the-loop.html} from a desired flight plan, and the model will output a precise timeline of maneuvers the drone will perform every tenth of a second. As previously mentioned, this was a useful alternative to simply evaluating a flight pattern by eye as having the maneuvers of a drone off by a couple seconds could result in immensely different results when in practice. 
 
 The process of choosing this model was done so by evaluating what was needed for this project. Seeming as though there was no need for regression, it was clear that a model that worked with classification had to be used. While this narrowed the overall amount of options to choose from, there were still quite a bit left. Originally, random forests were set to be implemented, however, they tend to be costly in terms of time, and with the data smoothing algorithm that will be evaluated later on, speed was a concern. Finally, a decision tree was settled on due to its speed, easiness to understand, and favorable accuracy results. The entire tree was based on the Gini index–the probability of whether a decision is wrong or not, therefore, generally as one traverses farther down the tree, the Gini index should become smaller. An example of the tree can be seen in Figure \ref{fig:tree} in which it shows a tree with a depth of 3. Generally speaking, finding the right depth of a tree depends entirely on the data as one does not want to over or under fit the data which will yield sub par results. \par
 
@@ -214,7 +214,7 @@ As Figure \ref{fig:hover} shows, comparing the data from a single maneuver, in t
   \includegraphics[width=70mm]{images/Normalizing2.png}
   \label{fig:sub2}
 \end{subfigure}
-\caption{A demonstration of the weighted average computation to normalize the power data for run 1 (left) and runs 2 and 3 (right).}
+\caption{A demonstration of the weighted average computation to normalize the power data for run 1 (top) and runs 2 and 3 (bottom).}
 \label{fig:Norm}
 \end{figure}
 
@@ -222,7 +222,21 @@ To examine the maximum flight time the data from the grounded tests which draine
 
 
 \section{Results and Discussion}
+
+
 \subsection{Machine Learning}
+The way the accuracy of the model is measured is through simulated flights in which the maneuvers are already known. Once the initial predictions are made, it is then compared to the correct predictions and this tends to yield a ~93\% accuracy rating. This is then improved upon with the data smoothing algorithm, and the new accuracy rating is ~95\%. The confusion matrix for a test can be seen in Figure \ref{fig:matrix}; the shaded boxes are the correct guesses made by the model. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics{images/matrix}
+	\caption{From a prediction on simulation data, this confusion matrix shows what the model predicted versus the actual value. The accuracy is ~95\%.}
+	\label{fig:matrix}
+\end{figure}
+
+While the accuracy of the model may be sufficient, other models should be explored. A classifier decision tree was chosen based purely on its reputation for speed. However, if a different model were to be chosen, say a random forest, then the accuracy could be improved upon.
+
+In terms of efficiency, the model itself is optimized very well, however, other functions being used can certainly be improved. The time complexities in the worst case can be quite time consuming if the data set is large enough. If the algorithms were more optimized, then the overall efficiency of the model would surpass that of its past rendition.
 
 
 \subsection{Power Statistics}
@@ -276,7 +290,7 @@ Figure \ref{fig:avgtotpwr} demonstrates the trends in battery energy with two di
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
    \includegraphics[width=90mm]{images/AvgTotPwr.png}
-\end{subfigure}%
+\end{subfigure}
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
   \includegraphics[width=90mm]{images/AvgTotPwr2.png}
@@ -315,7 +329,7 @@ Given this strong relationship, average power was able to be predicted from the 
 \subsection{Timeline Creation}
 \label{sec:timeline}
 \begin{lstlisting}
-# Iteravely travels through the prediction data to create a time line for each of the maneuvers
+# Iteraves through the prediction data to create a time line for each of the maneuvers
 def maneuverTimelineHelper(prediction_data, maneuver, man_counter, timeline):
 	maneuver = prediction_data[0]
 
