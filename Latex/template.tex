@@ -85,7 +85,7 @@ San Marcos, TX \\
 \keywords{Unmanned Aerial Vehicle \and UAV \and Drone \and Battery \and Battery Consumption \and Battery Usage \and Predict}
 
 
-\section{Introduction}[A]
+\section{Introduction}
 In recent years, unmanned aerial vehicle (UAV) have become increasingly popular in non-military contexts. As their technology improves, these devices become more and more integrated into society as they allow for tasks to be easily completed by a user in a location along a route. For example, Amazon and other distribution companies are developing methods that use these devices to deliver packages to their users in a fast and simple manner. As drones become more effective at delivering packages, they can replace trucks on short, relatively light deliveries, which will reduce the total amount of carbon dioxide emissions and have a positive impact on the environment \cite{Goodchild}. This technology is not limited to the aforementioned companies, instead, it is also used by archaeological sites and other sports companies to conduct surveillance missions for certain dig sites where a camera might not be the best choice, or at a football game. Police forces also have begun to use these UAVs in situations where it is not entirely safe to send in an officer. By allowing that officer to remotely control a drone, it allows them and many others to be safe.\par
 
 One of the many things holding UAVs back from doing such things are the simple fact that the Lithium Polymer (LiPo) battery usage is not easily predictable. On a basic level, the reason this battery consumption is difficult to predict is that LiPo batteries do not consume voltage linearly. Its voltage curve starts off fairy steep, but quickly levels out for the majority of its capacity before dropping off quickly when it reaches low energy levels (See Figure \ref{fig:volt}). If these non-linear nature of a battery could be properly quantified though, users could have the ability to accurately predict how much battery a given drone flight will consume which would allow them to determine whether or not certain flight missions were feasible. Going back to the previous example with Amazon, their delivery drones will not always be charged to maximum capacity, therefore, if they can see how much battery a delivery will take up, then they can determine whether or not they will need to send a different drone or replace the battery. Up until now, most UAV software can only communicate to the user how much battery is remaining in real time, and while that may be enough, in some situations—like the one mentioned previously—it is important to know how much will be consumed before the UAV leaves the ground.\par
@@ -108,7 +108,7 @@ As previously stated, these studies come with slight caveats. For the case of th
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.38]{images/source2graph.jpg}
-	\caption{Graph showing the difference in energy consumption between maneuvers of a quad-copter.}
+	\caption{Graph showing the difference in energy consumption between maneuvers of a quad-copter \protect\cite{Corral}}.
 	\label{fig:source2}
 \end{figure}
 
@@ -215,7 +215,7 @@ As Figure \ref{fig:hover} shows, comparing the data from a single maneuver, in t
   \includegraphics[width=70mm]{images/Normalizing2.png}
   \label{fig:sub2}
 \end{subfigure}
-\caption{A demonstration of the weighted average computation to normalize the power data for run 1 (left) and runs 2 and 3 (right).}
+\caption{A demonstration of the weighted average computation to normalize the power data for run 1 (top) and runs 2 and 3 (bottom).}
 \label{fig:Norm}
 \end{figure}
 
@@ -223,7 +223,21 @@ To examine the maximum flight time the data from the grounded tests which draine
 
 
 \section{Results and Discussion}
+
+
 \subsection{Machine Learning}
+The way the accuracy of the model is measured is through simulated flights in which the maneuvers are already known. Once the initial predictions are made, it is then compared to the correct predictions and this tends to yield a ~93\% accuracy rating. This is then improved upon with the data smoothing algorithm, and the new accuracy rating is ~95\%. The confusion matrix for a test can be seen in Figure \ref{fig:matrix}; the shaded boxes are the correct guesses made by the model. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics{images/matrix}
+	\caption{From a prediction on simulation data, this confusion matrix shows what the model predicted versus the actual value. The accuracy is ~95\%.}
+	\label{fig:matrix}
+\end{figure}
+
+While the accuracy of the model may be sufficient, other models should be explored. A classifier decision tree was chosen based purely on its reputation for speed. However, if a different model were to be chosen, say a random forest, then the accuracy could be improved upon.
+
+In terms of efficiency, the model itself is optimized very well, however, other functions being used can certainly be improved. The time complexities in the worst case can be quite time consuming if the data set is large enough. If the algorithms were more optimized, then the overall efficiency of the model would surpass that of its past rendition.
 
 
 \subsection{Power Statistics}
@@ -269,7 +283,7 @@ T={\frac {321.9p + 98770}{p + 29.3}}
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
    \includegraphics[width=90mm]{images/AvgTotPwr.png}
-\end{subfigure}%
+\end{subfigure}
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
   \includegraphics[width=90mm]{images/AvgTotPwr2.png}
