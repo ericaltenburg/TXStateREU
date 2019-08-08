@@ -13,7 +13,6 @@
 \usepackage{cite}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{lipsum}
 \usepackage{graphicx}
 \usepackage{subcaption}
 
@@ -76,7 +75,7 @@ San Marcos, TX \\
 
 
 \begin{abstract}
-\lipsum[1]
+Providing a user with the knowledge of how much battery an unmanned aerial vehicle (UAV) will consume for a given flight before it takes off gives them a tremendous advantage. With this, they will be able to act accordingly in the case where their drone battery is not fully charged, or if they have multiple flights planned. Using simulation data, a machine learning model is capable of creating a timeline of maneuvers which then allows the user to calculate the flight time and the state of charge while account for the variation in total energy.
 \end{abstract}
 
 
@@ -420,80 +419,6 @@ def smoothData(timeline):
 \end{lstlisting}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{LaTex Examples}
-%\label{sec:headings}
-%
-%\subsection{Previous Research}
-%Previous research \par
-%Equation Example: \newline
-%
-%\begin{equation}
-%\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
-%\end{equation}
-%
-%
-%\paragraph{Paragraph}
-%The Mentioned paragraph continues onto muliple lines it is a paragraph after all. What else do I write? I don't know
-%
-%
-%\label{sec:others}
-%When you have a paragraph you can also cite it. \cite{Prasetia} and see \cite{Chen} and see \cite{Corral}.
-%
-%And for a URL, the documentation for \verb+natbib+ may be found at
-%\begin{center}
-%\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-%\end{center}
-%Of note is the command \verb+\citet+, which produces citations
-%appropriate for use in inline text.  For example,
-%\begin{verbatim}
-%\citet{hasselmo} investigated\dots
-%\end{verbatim}
-%produces
-%\begin{quote}
-%Hasselmo, et al.\ (1995) investigated\dots
-%\end{quote}
-%
-%\begin{center}
-%\url{https://www.ctan.org/pkg/booktabs}
-%\end{center}
-%
-%
-%\subsection{Figures}
-%See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of the first footnote.}
-%See Section \ref{sec:headings}.
-%See Fig \ref{fig:fig1}
-%
-%\begin{figure}[!h]
-%\centering
-%%\includegraphics[width = 100mm]{}
-%\caption{Sample figure caption.}
-%\label{fig:fig1}
-%\end{figure}
-%
-%
-%\subsection{Tables}
-%
-%See awesome Table~\ref{tab:table}.
-%
-%\begin{table}[!h]
-%\caption{Sample table title}
-%\centering
-%\begin{tabular}{lll}
-%\toprule
-%\multicolumn{2}{c}{Part}                   \\
-%\cmidrule(r){1-2}
-%Name     & Description     & Size ($\mu$m) \\
-%\midrule
-%Dendrite & Input terminal  & $\sim$100     \\
-%Axon     & Output terminal & $\sim$10      \\
-%Soma     & Cell body       & up to $10^6$  \\
-%\bottomrule
-%\end{tabular}
-%\label{tab:table}
-%\end{table}
-
-\newpage
 \bibliography{references}
 \bibliographystyle{ieeetr}
 
