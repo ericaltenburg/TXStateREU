@@ -1,6 +1,6 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Related Work}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Improvements}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Flaws and Improvements}{section.2}% 3
 \BOOKMARK [1][-]{section.3}{Methods and Procedure}{}% 4
 \BOOKMARK [2][-]{subsection.3.1}{Data Collection}{section.3}% 5
 \BOOKMARK [2][-]{subsection.3.2}{Machine Learning}{section.3}% 6
@@ -12,7 +12,3 @@
 \BOOKMARK [1][-]{appendix.A}{Appendix}{}% 12
 \BOOKMARK [2][-]{subsection.A.1}{Timeline Creation}{appendix.A}% 13
 \BOOKMARK [2][-]{subsection.A.2}{Data Smoothing}{appendix.A}% 14
-\BOOKMARK [1][-]{appendix.B}{LaTex Examples}{}% 15
-\BOOKMARK [2][-]{subsection.B.1}{Previous Research}{appendix.B}% 16
-\BOOKMARK [2][-]{subsection.B.2}{Figures}{appendix.B}% 17
-\BOOKMARK [2][-]{subsection.B.3}{Tables}{appendix.B}% 18
