@@ -261,14 +261,20 @@ Once the maneuver data had been normalized, and smoothed, the final results coul
 \begin{figure}[!h]
   \centering
   \large{\textbf{Adjusted Maneuver Power Distribution}}\par
-  \includegraphics[width = 100mm]{images/powerfinal.png}
+  \includegraphics[width = 90mm]{images/powerfinal.png}
   \caption{Sample figure caption.}
   \label{fig:powerfinal}
 \end{figure}
 
-The average power and flight time data demonstrated a clear non-linear trend when graphed as a scatter plot which could be modeled with a rational regression equation (Equation 1). As figure \ref{fig:flighttime} shows, the regression fit the data well, with an R-square value of 0.95. As the average power increased, flight did not last as long, which was expected, but at high powers, the fight was actually using more total energy than at lower power levels. This rational equation can work in tandem with the machine learning model and average maneuver power predictions to estimate the maximum flight time of a drone flight. Given a timeline of how long a drone will be completing each maneuver, the average power predictions can estimate the average power of an entire flight. Plugging this value into the regression equation will output an expected maximum flight time. Users can then compare that flight time to the simulation flight time to determine whether or not the flight is viable and if it is, roughly what percent of battery consumption is left (by dividing simulated flight time by maximum flight time).
 
 
+
+
+The average power and flight time data demonstrated a clear non-linear trend when graphed as a scatter plot which could be modeled with a rational regression equation (Equation 1). As Figure \ref{fig:flighttime} shows, the regression fit the data well, with an R-square value of 0.95. As the average power increased, flight did not last as long, which was expected, but at high powers, the fight was actually using more total energy than at lower power levels. This rational equation can work in tandem with the machine learning model and average maneuver power predictions to estimate the maximum flight time of a drone flight. Given a timeline of how long a drone will be completing each maneuver, the average power predictions can estimate the average power of an entire flight. Plugging this value into the regression equation will output an expected maximum flight time. Users can then compare that flight time to the simulation flight time to determine whether or not the flight is viable and if it is, roughly what percent of battery consumption is left (by dividing simulated flight time by maximum flight time).
+
+\begin{equation}
+T={\frac {321.9p + 98770}{p + 29.3}}
+\end{equation}
 
 \begin{figure}[!h]
   \centering
@@ -278,15 +284,13 @@ The average power and flight time data demonstrated a clear non-linear trend whe
   \label{fig:flighttime}
 \end{figure}
 
-\begin{equation}
-T={\frac {321.9p + 98770}{p + 29.3}}
-\end{equation}
+
 
 Figure \ref{fig:avgtotpwr} demonstrates the trends in battery energy with two different batteries by comparing average power and total energy in a scatter plot which shows that total energy is far from constant. This was a major finding that is relevant to both drones and other fields, since LiPo batteries are common across a wide range of products including smartphones and electric cars, and it is unclear how universal is the belief that battery energy is not dependent on discharge rate. In the field of drone research, these trends in battery discharge were not accounted for in some of the most prominent analysis on drone battery consumption. Most models assumes this constant battery energy, which could lead to harmful predictions. Our model finds that battery energy, at least within the range we are considering, increases linearly with a model that fits the data very well. Battery 1's linear regression has an R-square of 0.99, and battery 2, even with just three data points, has an R-square of 0.88.
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\large{\textbf{Relationship between Average Power and Total Energy}}\par
+\large{\textbf{Relationship between Average Power and Total Energy}}}\par
 \begin{subfigure}[b]{0.5\textwidth}
   \centering
    \includegraphics[width=90mm]{images/AvgTotPwr.png}
@@ -299,10 +303,12 @@ Figure \ref{fig:avgtotpwr} demonstrates the trends in battery energy with two di
 \label{fig:avgtotpwr}
 \end{figure}
 
+
+
 To test the regression equations, tests which had not recorded power were used but did have average and total current information. To do this, first the relationship between average current and average power was analyzed, which needed to be very strong for the analysis to work. This was expected to be the case since power is calculated by multiplying current and voltage and the voltage curve should be pretty consistent from test to test. This would mean that average current should move proportionally to average power, which is what Figure \ref{fig:currtopwr} found. A linear regression fit the data almost perfectly with an R-square value of 0.999. 
 
 
-\begin{figure}
+\begin{figure}[!h]
   \centering
   \large{\textbf{Relationship between Average Current and Average Power}}\par
   \includegraphics[width = 100mm]{images/CurrToPwr.png}
@@ -312,7 +318,7 @@ To test the regression equations, tests which had not recorded power were used b
 
 Given this strong relationship, average power was able to be predicted from the average current data available in the extra tests that were not used in the originally flight time regression equation. The predicted average power data could then be graphed against flight time, to test the original regression. Given these five new data points, Figure \ref{fig:usingpredictedpower} shows that the model continued to preform well with an R-square of 0.91. The sensor on these specific flights seemed to stop working pretty randomly, making them a perfect test group, which is positive evidence for the validity.
 
-\begin{figure}
+\begin{figure}[!h]
   \centering
   \large{\textbf{Testing the Maximum Flight Time Regression}}\par
   \includegraphics[width = 100mm]{images/UsingPredictedPower.png}
