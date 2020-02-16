@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  26 NOV 2019 11:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  16 FEB 2020 16:11
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **template.tex
 (./template.tex
@@ -592,10 +591,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [5 <./images/HoverPlain.png>]
 Package epstopdf Info: Source file: <images/matrix.eps>
-(epstopdf)                    date: 2019-08-08 12:55:12
+(epstopdf)                    date: 2019-12-26 00:01:48
 (epstopdf)                    size: 20266 bytes
 (epstopdf)             Output file: <images/matrix-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-08-08 12:55:45
+(epstopdf)                    date: 2019-12-26 00:01:48
 (epstopdf)                    size: 10020 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/matrix-eps-converte
 d-to.pdf images/matrix.eps>
@@ -653,7 +652,7 @@ Package pdftex.def Info: images/CurrToPwr.png  used on input line 313.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9 <./images/AvgTotPwr.png (PNG copy)> <./images/AvgTotPwr2.png (PNG copy)>]
-<images/UsingPredictedPower.png, id=176, 1288.815pt x 823.075pt>
+<images/UsingPredictedPower.png, id=175, 1288.815pt x 823.075pt>
 File: images/UsingPredictedPower.png Graphic file (type png)
 <use images/UsingPredictedPower.png>
 Package pdftex.def Info: images/UsingPredictedPower.png  used on input line 323
@@ -670,38 +669,31 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 429.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 429.
 Package rerunfilecheck Info: File `template.out' has not changed.
 (rerunfilecheck)             Checksum: 5D6A96A10CDDD6F11CBD7D7D3A04F24C;827.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 429.
  ) 
 Here is how much of TeX's memory you used:
- 11268 strings out of 492616
- 171978 string characters out of 6129482
+ 11267 strings out of 492616
+ 171969 string characters out of 6129482
  531124 words of memory out of 5000000
  14716 multiletter control sequences out of 15000+600000
  62909 words of font info for 172 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,12n,45p,1598b,1853s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{figure.11} has been referenced but does not exist
-, replaced by a fixed one
-
-{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/tex
-live/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texli
-ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texliv
-e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
-2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-019/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/201
-9/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2019/
-texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist
-/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/ty
-pe1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/ti
-mes/utmri8a.pfb>
-Output written on template.pdf (12 pages, 821269 bytes).
+{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
+exlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
+live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texl
+ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
+e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
+/2019/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2
+019/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/201
+9/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-di
+st/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/
+times/utmri8a.pfb>
+Output written on template.pdf (12 pages, 821293 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 291 compressed objects within 3 object streams
- 128 named destinations out of 1000 (max. 500000)
+ 335 PDF objects out of 1000 (max. 8388607)
+ 290 compressed objects within 3 object streams
+ 127 named destinations out of 1000 (max. 500000)
  29362 words of extra memory for PDF output out of 29859 (max. 10000000)
 
